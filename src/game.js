@@ -32,8 +32,10 @@ function initAudio() {
 function playJump() {
   if (!audioCtx || soundMuted) return;
   if (audioCtx.state === 'suspended') audioCtx.resume();
+  if (!sfxBuffers.length) return;
   let idx;
-  do { idx = Math.floor(Math.random() * sfxBuffers.length); } while (idx === lastJumpIdx);
+  if (sfxBuffers.length === 1) { idx = 0; }
+  else { do { idx = Math.floor(Math.random() * sfxBuffers.length); } while (idx === lastJumpIdx); }
   lastJumpIdx = idx;
   const buf = sfxBuffers[idx];
   if (!buf) return;
@@ -46,6 +48,7 @@ function playJump() {
   src.start();
 }
 let W, H;
+const fontFam = getComputedStyle(document.body).fontFamily;
 
 function resize() {
   const dpr = window.devicePixelRatio || 1;
@@ -200,6 +203,30 @@ let MONTHS = MONTHS_H1;
 let unlockedLevel = 0;
 try { unlockedLevel = parseInt(localStorage.getItem('antcoin-unlocked')) || 0; } catch(e) {}
 
+let decoCandles = [];
+function generateDecoCandles() {
+  decoCandles = [];
+  const count = Math.floor(W / CSTEP) + 4;
+  const startX = -CSTEP;
+  const midY = H * 0.55;
+  let price = midY;
+  for (let i = 0; i < count; i++) {
+    const x = startX + i * CSTEP;
+    price += (Math.random() - 0.5) * 40;
+    price = Math.max(H * 0.25, Math.min(H * 0.75, price));
+    const isRed = Math.random() < 0.55;
+    const bH = 20 + Math.random() * 40;
+    const topY = price - bH / 2;
+    decoCandles.push({
+      x, topY, botY: topY + bH, bodyH: bH,
+      wickTop: topY - 6 - Math.random() * 14,
+      wickBot: topY + bH + 4 + Math.random() * 10,
+      isRed, crumbleTimer: -1, crumbleOff: 0, opacity: 1,
+      scored: false, idx: i, month: 0
+    });
+  }
+}
+
 function renderStartScreen() {
   const lvl = LEVELS[currentLevel];
   const el = (id) => document.getElementById(id);
@@ -224,6 +251,7 @@ function renderStartScreen() {
 window.switchLevel = function(i) {
   if (i >= 0 && i <= unlockedLevel && i < LEVELS.length) {
     currentLevel = i;
+    generateDecoCandles();
     renderStartScreen();
   }
 };
@@ -258,6 +286,35 @@ let allEvents = [];
 let triggeredEvents = new Set();
 let monthScores = [];
 let prevMonthScore = 0;
+let deathCause = 'fall';
+
+const DEATH_MSG_BLUE = [
+  '파란 캔들에 당했다',
+  '하락장에 휩쓸렸다',
+  '물렸다...',
+  '반토막 났다',
+  '계좌가 녹고 있다',
+  '지하실로 내려갑니다',
+  '지하 1층은 시작일 뿐',
+  '더 밑이 있었다',
+];
+const DEATH_MSG_FALL = [
+  '바닥을 뚫었다',
+  '지지선이 무너졌다',
+  '손절 타이밍을 놓쳤다',
+  '총알이 다 떨어졌다',
+  '마이너스의 손',
+];
+const DEATH_MSG_GENERIC = [
+  '오늘 장은 여기까지',
+  '다음엔 더 잘할 수 있다',
+  '수업료였을 뿐',
+];
+function getDeathMessage(cause) {
+  const pool = cause === 'blue' ? DEATH_MSG_BLUE : DEATH_MSG_FALL;
+  const all = pool.concat(DEATH_MSG_GENERIC);
+  return all[Math.floor(Math.random() * all.length)];
+}
 const floatingTexts = [];
 function spawnFloatText(x, y, text, color) {
   floatingTexts.push({ x, y, text, color, life: 1 });
@@ -361,8 +418,8 @@ function initCandles() {
 }
 
 function recycleCandles() {
-  for (let i = candles.length - 1; i >= 0; i--) {
-    if (candles[i].x < camX - 200) candles.splice(i, 1);
+  for (const c of candles) {
+    if (c.active !== false && c.x < camX - 200) c.active = false;
   }
 }
 
@@ -376,7 +433,7 @@ const coin = {
 };
 
 function resetCoin() {
-  const c = candles[1];
+  const c = candles[1] || candles[0];
   coin.x = c.x; coin.y = c.topY - CR;
   coin.vx = 0; coin.vy = 0;
   coin.onGround = true; coin.squashY = 1; coin.squashVel = 0;
@@ -394,7 +451,12 @@ function onDown(e) {
   if (state === 'startjump') return;
   if (state === 'launching') return;
   if (state === 'paused') return;
-  if (state === 'dead') { if (frame > deadFrame+8) showStart(); return; }
+  if (state === 'dead') {
+    if (frame > deadFrame+8) {
+      if (!winReady) { skipScorecard(); } else { showStart(); }
+    }
+    return;
+  }
   if (state === 'win') return;
   if (touchHintShown) {
     document.getElementById('touch-hint').style.opacity = '0';
@@ -425,18 +487,24 @@ document.addEventListener('keyup', e => { if (e.code==='Space') onUp(e); });
 
 // ─── Particles ───
 const particles = [];
+const MAX_PARTICLES = 150;
 function spawnP(x,y,color,n,sp) {
-  for (let i=0;i<n;i++) particles.push({
-    x,y, vx:(Math.random()-0.5)*(sp||4), vy:-Math.random()*3-1,
-    life:1, color, size:2+Math.random()*3
-  });
+  for (let i=0;i<n;i++) {
+    if (particles.length >= MAX_PARTICLES) particles.shift();
+    particles.push({
+      x,y, vx:(Math.random()-0.5)*(sp||4), vy:-Math.random()*3-1,
+      life:1, color, size:2+Math.random()*3
+    });
+  }
 }
 function updateP() {
-  for (let i=particles.length-1;i>=0;i--) {
+  let write = 0;
+  for (let i=0;i<particles.length;i++) {
     const p=particles[i];
     p.x+=p.vx; p.y+=p.vy; p.vy+=0.12; p.life-=0.02;
-    if (p.life<=0) particles.splice(i,1);
+    if (p.life>0) { particles[write++]=p; }
   }
+  particles.length = write;
 }
 
 function spawnDust(x, y, n) {
@@ -594,6 +662,8 @@ window.pauseConfirmNo = function() {
 function showStart() {
   state = 'start'; paused = false;
   currentLevel = Math.min(unlockedLevel, LEVELS.length - 1);
+  generateDecoCandles();
+  camX = 0;
   renderStartScreen();
   document.getElementById('ss').classList.add('vis');
   document.getElementById('gs').classList.remove('vis');
@@ -622,6 +692,9 @@ function startGame() {
 }
 
 let launchStartTimer = 0;
+let launchStartY = 0;
+let launchEndY = 0;
+let launchJumpH = 80;
 function tapToStart() {
   if (state !== 'start') return;
   initAudio();
@@ -697,22 +770,37 @@ function buildScorecard(isWin) {
       + '<span class="sc-num" data-val="' + comboBonus.toFixed(1) + '" style="font-weight:600">+0.0%</span></div>'
     : '';
 
-  return '<div style="margin-bottom:20px">'
-    + (isWin ? '<div style="font-size:24px;font-weight:800;color:var(--gold);margin-bottom:4px">개미는 강하다! 📈</div>'
-              + '<div style="font-size:12px;color:var(--fg-dim);margin-bottom:4px">' + LEVELS[currentLevel].title + ' 클리어!</div>'
-             : '<div style="font-size:14px;color:var(--fg-dim);margin-bottom:4px">' + LEVELS[currentLevel].title + ' — ' + MONTHS[curMonth].name + '까지 도달</div>')
-    + '</div>'
-    + '<div style="width:200px;margin:0 auto 16px">' + rows
+  const header = '<div style="font-size:11px;font-weight:700;color:var(--fg-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px">INVESTMENT REPORT</div>';
+
+  const titleSection = isWin
+    ? '<div style="font-size:24px;font-weight:800;color:var(--gold);margin-bottom:4px">개미는 강하다! 📈</div>'
+      + '<div style="font-size:12px;color:var(--fg-dim);margin-bottom:4px">' + LEVELS[currentLevel].title + ' 클리어!</div>'
+    : '<div style="font-size:20px;font-weight:800;color:var(--fg);margin-bottom:4px">' + getDeathMessage(deathCause) + ' 📉</div>'
+      + '<div style="font-size:12px;color:var(--fg-dim);margin-bottom:4px">' + LEVELS[currentLevel].title + ' — ' + MONTHS[curMonth].name + '에서 탈락</div>';
+
+  const titleBlock = isWin
+    ? '<div class="sc-reveal" style="font-size:11px;color:var(--fg-dim);text-transform:uppercase;letter-spacing:1.5px;margin-top:16px;margin-bottom:4px;opacity:0">칭호</div>'
+      + '<div class="sc-reveal" style="font-size:28px;font-weight:800;color:'+totalCol+';opacity:0">' + title + '</div>'
+      + '<div class="sc-reveal" style="font-size:12px;color:var(--fg-dim);margin-top:4px;opacity:0">최고 +' + best.toFixed(1) + '%</div>'
+    : '<div class="sc-reveal" style="font-size:12px;color:var(--fg-dim);margin-top:12px;opacity:0">최고 +' + best.toFixed(1) + '%</div>';
+
+  return header
+    + '<div style="margin-bottom:20px">' + titleSection + '</div>'
+    + '<div style="font-size:36px;font-weight:800;color:'+totalCol+';margin-bottom:16px">'
+    + '<span class="sc-num" data-val="' + finalScore.toFixed(1) + '">+0.0%</span></div>'
+    + '<div style="width:220px;margin:0 auto 16px;background:rgba(255,255,255,0.04);border-radius:12px;padding:12px 16px">' + rows
     + comboRow
-    + '<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:6px;padding-top:8px;display:flex;justify-content:space-between;font-size:15px;font-weight:800">'
-    + '<span>총 수익률</span><span class="sc-num" data-val="' + finalScore.toFixed(1) + '" style="color:'+totalCol+'">+0.0%</span></div></div>'
+    + '</div>'
     + newBest
-    + '<div class="sc-reveal" style="font-size:11px;color:var(--fg-dim);text-transform:uppercase;letter-spacing:1.5px;margin-top:16px;margin-bottom:4px;opacity:0">칭호</div>'
-    + '<div class="sc-reveal" style="font-size:28px;font-weight:800;color:'+totalCol+';opacity:0">' + title + '</div>'
-    + '<div class="sc-reveal" style="font-size:12px;color:var(--fg-dim);margin-top:4px;opacity:0">최고 +' + best.toFixed(1) + '%</div>';
+    + titleBlock;
 }
 
-function animateScorecard(container) {
+let scorecardTimers = [];
+let scorecardScreen = 'ws';
+function animateScorecard(container, screenId) {
+  scorecardTimers.forEach(id => clearInterval(id));
+  scorecardTimers = [];
+  scorecardScreen = screenId || 'ws';
   const nums = container.querySelectorAll('.sc-num');
   const reveals = container.querySelectorAll('.sc-reveal');
   let i = 0;
@@ -730,39 +818,71 @@ function animateScorecard(container) {
         clearInterval(interval);
         el.textContent = '+' + cur.toFixed(1) + '%';
         i++;
-        setTimeout(tickNum, 80);
+        scorecardTimers.push(setTimeout(tickNum, 80));
       } else {
         el.textContent = '+' + cur.toFixed(1) + '%';
       }
     }, 15);
+    scorecardTimers.push(interval);
   }
   function revealNext(j) {
     if (j >= reveals.length) {
-      const btns = document.getElementById('ws-btns');
-      if (btns) setTimeout(() => { btns.style.opacity = '1'; winReady = true; }, 400);
+      if (scorecardScreen === 'ws') {
+        const btns = document.getElementById('ws-btns');
+        if (btns) scorecardTimers.push(setTimeout(() => { btns.style.opacity = '1'; winReady = true; hideSkipBtn(); }, 400));
+      } else {
+        scorecardTimers.push(setTimeout(() => { winReady = true; hideSkipBtn(); }, 400));
+      }
       return;
     }
     reveals[j].style.transition = 'opacity 0.3s';
     reveals[j].style.opacity = '1';
-    setTimeout(() => revealNext(j + 1), 150);
+    scorecardTimers.push(setTimeout(() => revealNext(j + 1), 150));
   }
-  setTimeout(tickNum, 300);
+  scorecardTimers.push(setTimeout(tickNum, 300));
+}
+
+function hideSkipBtn() {
+  const s1 = document.getElementById('ws-skip');
+  const s2 = document.getElementById('gs-skip');
+  if (s1) s1.style.opacity = '0';
+  if (s2) s2.style.opacity = '0';
+}
+
+function skipScorecard() {
+  scorecardTimers.forEach(id => { clearInterval(id); clearTimeout(id); });
+  scorecardTimers = [];
+  const id = scorecardScreen;
+  const container = document.getElementById(id + '-inner');
+  container.querySelectorAll('.sc-num').forEach(el => {
+    el.textContent = '+' + parseFloat(el.dataset.val).toFixed(1) + '%';
+  });
+  container.querySelectorAll('.sc-reveal').forEach(el => {
+    el.style.transition = 'none'; el.style.opacity = '1';
+  });
+  if (id === 'ws') {
+    const btns = document.getElementById('ws-btns');
+    if (btns) { btns.style.opacity = '1'; }
+  }
+  winReady = true;
+  hideSkipBtn();
 }
 
 function die() {
   state='dead'; deadFrame=frame;
   coin.expression='scared'; shake(10);
-  finalizeMonthScores();
-  const comboBonus = maxSanghan * 1.0;
-  const finalScore = score + comboBonus;
-  let isNew = finalScore > best;
-  if (isNew) { best=finalScore; try{localStorage.setItem('antcoin-best-'+currentLevel,best.toFixed(1));}catch(e){} }
-  document.getElementById('hb').textContent='+'+best.toFixed(1)+'%';
-  const newBest = isNew ? '<div style="color:var(--gold);font-size:12px;font-weight:600;margin-top:6px">새로운 최고 기록!</div>' : '';
-  document.getElementById('gs-inner').innerHTML =
-    '<div style="font-size:14px;color:var(--fg-dim);margin-bottom:8px">' + LEVELS[currentLevel].title + ' — ' + MONTHS[curMonth].name + '에서 탈락</div>'
-    + '<div style="font-size:32px;font-weight:800;color:var(--fg)">+' + finalScore.toFixed(1) + '%</div>'
-    + newBest;
+  winReady = true;
+  document.querySelector('.hud').style.display = 'none';
+  document.getElementById('gs-inner').innerHTML = buildScorecard(false);
+  const container = document.getElementById('gs-inner');
+  container.querySelectorAll('.sc-num').forEach(el => {
+    el.textContent = '+' + parseFloat(el.dataset.val).toFixed(1) + '%';
+  });
+  container.querySelectorAll('.sc-reveal').forEach(el => {
+    el.style.opacity = '1';
+  });
+  const skipBtn = document.getElementById('gs-skip');
+  if (skipBtn) skipBtn.style.display = 'none';
   setTimeout(()=>document.getElementById('gs').classList.add('vis'), 100);
 }
 
@@ -770,6 +890,7 @@ function win() {
   state='win'; deadFrame=frame;
   coin.expression='happy'; shake(12);
   winReady = false;
+  document.querySelector('.hud').style.display = 'none';
   if (currentLevel >= unlockedLevel && currentLevel + 1 < LEVELS.length) {
     unlockedLevel = currentLevel + 1;
     try { localStorage.setItem('antcoin-unlocked', unlockedLevel); } catch(e) {}
@@ -778,15 +899,29 @@ function win() {
   const btns = document.getElementById('ws-btns');
   btns.style.opacity = '0';
   const nextBtn = document.getElementById('ws-next');
+  const retryBtn = document.querySelector('.win-btn.retry');
+  const endMsg = document.getElementById('ws-end-msg');
   if (currentLevel + 1 >= LEVELS.length) {
     nextBtn.style.display = 'none';
+    if (retryBtn) { retryBtn.style.background = 'var(--gold)'; retryBtn.style.color = '#000'; retryBtn.style.width = '100%'; }
+    if (endMsg) { endMsg.style.display = ''; }
   } else {
     nextBtn.style.display = '';
-    nextBtn.textContent = LEVELS[currentLevel + 1].title;
+    if (retryBtn) { retryBtn.style.background = ''; retryBtn.style.color = ''; retryBtn.style.width = ''; }
+    if (endMsg) { endMsg.style.display = 'none'; }
+    const nl = LEVELS[currentLevel + 1];
+    const num = String(currentLevel + 2).padStart(2, '0');
+    nextBtn.textContent = num + ' | ' + nl.title;
   }
+  const skipBtn = document.getElementById('ws-skip');
+  if (skipBtn) skipBtn.style.opacity = '0';
   spawnP(coin.x, coin.y-20, 'rgba(255,215,0,0.8)', 20, 8);
   spawnP(coin.x, coin.y-20, 'rgba(255,59,48,0.6)', 15, 6);
-  setTimeout(()=>{ document.getElementById('ws').classList.add('vis'); animateScorecard(document.getElementById('ws-inner')); }, 300);
+  setTimeout(()=>{
+    document.getElementById('ws').classList.add('vis');
+    animateScorecard(document.getElementById('ws-inner'), 'ws');
+    if (skipBtn) setTimeout(() => { skipBtn.style.opacity = '1'; }, 200);
+  }, 300);
 }
 
 function tryJump() {
@@ -798,7 +933,7 @@ function tryJump() {
   if (wantJump) {
     if (coin.onWall) {
       coin.vy = WALL_JUMP_VY;
-      coin.vx = WALL_JUMP_VX;
+      coin.vx = WALL_JUMP_VX * coin.wallDir;
       coin.onWall = false;
       coin.wallCandle = null;
       coin.airJumps = 1;
@@ -887,7 +1022,7 @@ function updateCoin() {
   coin.curCandle = null;
 
   for (const c of candles) {
-    if (c.opacity < 0.3) continue;
+    if (c.active === false || c.opacity < 0.3) continue;
     const candL = c.x - CW/2, candR = c.x + CW/2;
     const candTop = c.topY + c.crumbleOff;
     const candBot = c.botY + c.crumbleOff;
@@ -966,15 +1101,29 @@ function updateCoin() {
           spawnP(coin.x, coin.y, 'rgba(255,255,255,0.3)', 2, 1);
           break;
         }
+        if (coin.vx < 0 && coinL <= candR + 2 && coinL >= candR - 8 && coinR > candR) {
+          coin.x = candR + CR * 0.6;
+          coin.vx = 0;
+          coin.onWall = true;
+          coin.wallDir = -1;
+          coin.wallCandle = c;
+          coin.airJumps = 0;
+          spawnP(coin.x, coin.y, 'rgba(255,255,255,0.3)', 2, 1);
+          break;
+        }
       }
     }
   }
 
-  if (coin.y > H + 50) die();
+  if (coin.y > H + 50) {
+    deathCause = (coin.curCandle && !coin.curCandle.isRed) ? 'blue' : 'fall';
+    die();
+  }
 }
 
 function updateCandles() {
   for (const c of candles) {
+    if (c.active === false) continue;
     if (c.crumbleTimer > 0) { c.crumbleTimer--; }
     else if (c.crumbleTimer === 0) {
       c.crumbleOff += 4;
@@ -1031,7 +1180,7 @@ function drawGrid() {
   ctx.setLineDash([8, 5]);
   ctx.beginPath(); ctx.moveTo(0, sanghanY); ctx.lineTo(W, sanghanY); ctx.stroke();
   ctx.setLineDash([]);
-  const fontFam = getComputedStyle(document.body).fontFamily;
+
   ctx.font = '600 10px ' + fontFam;
   ctx.fillStyle = 'rgba(255,59,48,0.35)';
   ctx.textAlign = 'left';
@@ -1039,7 +1188,7 @@ function drawGrid() {
 }
 
 function drawMonthLabels() {
-  const fontFam = getComputedStyle(document.body).fontFamily;
+
   for (let m = 0; m < MONTHS.length; m++) {
     const sx = 100 + monthStarts[m] * CSTEP - camX;
     if (sx < -100 || sx > W + 100) continue;
@@ -1060,7 +1209,7 @@ function drawMonthPop() {
   monthPopTimer--;
   const total = 60;
   const t = (total - monthPopTimer) / total;
-  const fontFam = getComputedStyle(document.body).fontFamily;
+
   let alpha, scale;
   if (t < 0.15) {
     const p = t / 0.15;
@@ -1090,6 +1239,7 @@ function drawMonthPop() {
 }
 
 function drawCandle(c) {
+  if (c.active === false) return;
   const sx = c.x - camX;
   if (sx < -60 || sx > W+60) return;
   const a = c.opacity; if (a<=0) return;
@@ -1204,7 +1354,7 @@ function drawParticles() {
     ctx.beginPath(); ctx.arc(ring.x-camX, ring.y, ring.r, 0, Math.PI*2); ctx.stroke();
   }
   ctx.globalAlpha=1;
-  const fontFam = getComputedStyle(document.body).fontFamily;
+
   for (let i=floatingTexts.length-1;i>=0;i--) {
     const ft=floatingTexts[i];
     ft.y -= 0.8; ft.life -= 0.018;
@@ -1222,7 +1372,7 @@ function drawParticles() {
 }
 
 function drawBgOverlays() {
-  const fontFam = getComputedStyle(document.body).fontFamily;
+
 
   if (flashAlpha > 0) {
     ctx.globalAlpha = flashAlpha * 0.25;
@@ -1263,7 +1413,7 @@ function drawBgOverlays() {
 function drawFgOverlays() {
   if (eventTimer > 0) {
     eventTimer--;
-    const fontFam = getComputedStyle(document.body).fontFamily;
+  
     const a = eventTimer < 20 ? eventTimer / 20 : Math.min((100 - eventTimer) / 10, 1);
     const yOff = eventTimer > 80 ? (100 - eventTimer) * 1.5 : 0;
     ctx.save();
@@ -1285,11 +1435,10 @@ function drawFgOverlays() {
 // ─── Idle ───
 function drawIdle(jumpFrame) {
   drawGrid();
-  if (!candles.length) initCandles();
-  drawMonthLabels();
-  for (const c of candles) drawCandle(c);
+  if (!decoCandles.length) generateDecoCandles();
+  for (const c of decoCandles) drawCandle(c);
 
-  const ic = candles[1];
+  const ic = decoCandles.reduce((best, c) => Math.abs(c.x - 100) < Math.abs(best.x - 100) ? c : best);
   if (ic) {
     let bounce;
     if (jumpFrame) {
@@ -1339,9 +1488,87 @@ function loop() {
     drawIdle();
   } else if (state==='startjump') {
     launchStartTimer++;
-    drawIdle(launchStartTimer);
+    if (launchStartTimer === 15) {
+      MONTHS = LEVELS[currentLevel].months;
+      loadBest();
+      camX = 0; score = 0; sanghan = 0; maxSanghan = 0; freezeFrames = 0;
+      flashAlpha = 0; popText = ''; popTextTimer = 0; eventText = ''; eventTimer = 0;
+      monthPopText = ''; monthPopTimer = 0; curMonth = 0; triggeredEvents = new Set();
+      monthScores = new Array(MONTHS.length).fill(0); prevMonthScore = 0;
+      particles.length = 0; airRings.length = 0; floatingTexts.length = 0;
+      jumpPressed = false; jumpHeld = false;
+      initCandles();
+    }
+    if (launchStartTimer < 15) {
+      drawGrid();
+      for (const c of decoCandles) drawCandle(c);
+    } else {
+      drawGrid();
+      drawBgOverlays(); drawFgOverlays(); drawMonthLabels();
+      for (const c of candles) drawCandle(c);
+    }
+    const ic = decoCandles.reduce((best, c) => Math.abs(c.x - 100) < Math.abs(best.x - 100) ? c : best);
+    if (launchStartTimer === 1 && ic) {
+      launchStartY = ic.topY - CR;
+    }
+    if (launchStartTimer === 15) {
+      const gc = candles[1];
+      launchEndY = gc.topY - CR;
+      const diff = launchStartY - launchEndY;
+      launchJumpH = Math.max(80, (diff > 0 ? diff : 0) + 60);
+    }
+    if (ic) {
+      let cy;
+      if (launchStartTimer <= 15) {
+        const t = launchStartTimer / 15;
+        cy = launchStartY - Math.sin(t * Math.PI * 0.5) * launchJumpH;
+      } else {
+        const t = (launchStartTimer - 15) / 15;
+        cy = (launchStartY - launchJumpH) + t * t * (launchEndY - (launchStartY - launchJumpH));
+      }
+      const cx = ic.x - camX;
+      ctx.save(); ctx.translate(cx, cy);
+      ctx.shadowColor = 'rgba(255,215,0,0.5)'; ctx.shadowBlur = 16;
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath(); ctx.arc(0, 0, CR, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
+      ctx.strokeStyle = 'rgba(255,180,0,0.6)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(0, 0, CR * 0.72, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = '#1a1a00';
+      ctx.beginPath(); ctx.arc(-4, -2, 2.5, 0, Math.PI * 2); ctx.arc(4, -2, 2.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.8)';
+      ctx.beginPath(); ctx.arc(-3, -3, 1, 0, Math.PI * 2); ctx.arc(5, -3, 1, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#1a1a00'; ctx.lineWidth = 1.2; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(-4, -CR * 0.6); ctx.quadraticCurveTo(-8, -CR * 1.1, -10, -CR * 1.2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(4, -CR * 0.6); ctx.quadraticCurveTo(8, -CR * 1.1, 10, -CR * 1.2); ctx.stroke();
+      ctx.fillStyle = '#1a1a00';
+      ctx.beginPath(); ctx.arc(-10, -CR * 1.2, 1.5, 0, Math.PI * 2); ctx.arc(10, -CR * 1.2, 1.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(0, 1, 4, 0.15 * Math.PI, 0.85 * Math.PI); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,0.15)';
+      ctx.beginPath(); ctx.ellipse(-4, -5, 6, 4, -0.3, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+    updateP(); drawParticles();
     if (launchStartTimer >= 30) {
-      selectLevel(currentLevel);
+      const gc = candles[1];
+      coin.x = gc.x; coin.y = gc.topY - CR;
+      coin.vx = 0; coin.vy = 0;
+      coin.onGround = true; coin.squashY = 0.7; coin.squashVel = 0;
+      coin.rotation = 0; coin.lastGroundT = performance.now();
+      coin.curCandle = gc; coin.expression = 'normal';
+      coin.airJumps = 0; coin.onWall = false; coin.wallDir = 0; coin.wallCandle = null;
+      state = 'playing';
+      monthPopText = MONTHS[0].name; monthPopTimer = 60;
+      document.getElementById('ss').classList.remove('vis');
+      document.getElementById('gs').classList.remove('vis');
+      document.getElementById('ws').classList.remove('vis');
+      document.querySelector('.hud').style.display = '';
+      updateHUD();
+      const hint = document.getElementById('touch-hint');
+      if (currentLevel === 0 && unlockedLevel === 0) {
+        hint.style.opacity = '1'; touchHintShown = true;
+      } else {
+        hint.style.opacity = '0'; touchHintShown = false;
+      }
     }
   } else if (state==='playing') {
     if (freezeFrames > 0) { freezeFrames--; }
@@ -1416,7 +1643,6 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
-initCandles();
 showStart();
 loop();
 
@@ -1424,3 +1650,11 @@ loop();
 window.replayLevel = replayLevel;
 window.nextLevel = nextLevel;
 window.selectLevel = selectLevel;
+
+document.getElementById('ws').addEventListener('click', function(e) {
+  if (e.target.closest('.win-btn')) return;
+  if (e.target.closest('.skip-btn')) { if (!winReady) skipScorecard(); return; }
+});
+document.getElementById('gs').addEventListener('click', function(e) {
+  if (e.target.closest('.skip-btn')) { if (!winReady) skipScorecard(); return; }
+});
