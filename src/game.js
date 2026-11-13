@@ -985,6 +985,7 @@ window.pauseRestart = function() {
     document.getElementById('pause-confirm').classList.remove('vis');
     document.getElementById('hud-dropdown').classList.remove('vis');
     document.getElementById('pause-dim').classList.remove('vis');
+    document.getElementById('hud-pause').innerHTML = '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><rect x="4" y="3" width="4" height="14" rx="1"/><rect x="12" y="3" width="4" height="14" rx="1"/></svg>';
     selectLevel(currentLevel);
   };
 };
@@ -998,6 +999,7 @@ window.pauseHome = function() {
     document.getElementById('pause-confirm').classList.remove('vis');
     document.getElementById('hud-dropdown').classList.remove('vis');
     document.getElementById('pause-dim').classList.remove('vis');
+    document.getElementById('hud-pause').innerHTML = '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><rect x="4" y="3" width="4" height="14" rx="1"/><rect x="12" y="3" width="4" height="14" rx="1"/></svg>';
     showStart();
   };
 };
@@ -1911,7 +1913,22 @@ function drawIdle(jumpFrame) {
 }
 
 // ─── Main Loop ───
-function loop() {
+let lastLoopTime = 0;
+let loopTimeDebt = 0;
+const FRAME_DUR = 1000 / 60;
+
+function loop(timestamp) {
+  requestAnimationFrame(loop);
+  if (!timestamp) return;
+  if (!lastLoopTime) { lastLoopTime = timestamp; return; }
+
+  loopTimeDebt += timestamp - lastLoopTime;
+  lastLoopTime = timestamp;
+
+  if (loopTimeDebt < FRAME_DUR * 0.95) return;
+  if (loopTimeDebt > FRAME_DUR * 5) loopTimeDebt = FRAME_DUR;
+  loopTimeDebt -= FRAME_DUR;
+
   frame++;
   shakeX *= 0.85; shakeY *= 0.85;
   ctx.clearRect(0,0,W,H);
@@ -2073,16 +2090,16 @@ function loop() {
   }
 
   ctx.restore();
-  requestAnimationFrame(loop);
 }
 
 showStart();
-loop();
+requestAnimationFrame(loop);
 
 // Expose globals for onclick handlers in HTML
 window.replayLevel = replayLevel;
 window.nextLevel = nextLevel;
 window.selectLevel = selectLevel;
+window.showStart = showStart;
 
 // ONE store / Toss SDK 라이프사이클 훅
 window.__gameHooks = {

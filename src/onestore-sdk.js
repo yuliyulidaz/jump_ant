@@ -7,6 +7,7 @@ const SDK_URL = `https://h5sdk.onestore.net/lib/${SDK_VERSION}/onestore-h5-sdk.m
 let sdk = null;
 let sdkReady = false;
 let sdkCtx = {};
+let adsSupported = false;
 
 // game.js가 호출할 수 있도록 글로벌에 노출
 window.__onestore = {
@@ -72,7 +73,10 @@ async function initOneStore() {
     sdkReady = true;
     console.log('[onestore] SDK 준비 완료, playerId:', info.playerId);
 
-    sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
+    adsSupported = sdk.ads.isSupported('interstitial');
+    if (adsSupported) {
+      sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
+    }
 
   } catch (e) {
     console.log('[onestore] 초기화 실패:', e.reason, e.message);
@@ -80,7 +84,7 @@ async function initOneStore() {
 }
 
 window.__onestore.showInterstitial = function(callback) {
-  if (!sdkReady || !sdk) { if (callback) callback(); return; }
+  if (!sdkReady || !sdk || !adsSupported) { if (callback) callback(); return; }
   try {
     sdk.ads.showInterstitial({
       placementId: 'x99DV-CRL5-NB6J-YS4T',
