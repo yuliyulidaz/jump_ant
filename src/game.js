@@ -954,17 +954,20 @@ window.togglePause = function() {
   const dd = document.getElementById('hud-dropdown');
   const dim = document.getElementById('pause-dim');
   const confirm = document.getElementById('pause-confirm');
+  const pauseBtn = document.getElementById('hud-pause');
   if (paused) {
     prevState = state;
     state = 'paused';
     dd.classList.add('vis');
     dim.classList.add('vis');
     confirm.classList.remove('vis');
+    pauseBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M5 3l12 7-12 7V3z"/></svg>';
   } else {
     state = prevState;
     dd.classList.remove('vis');
     dim.classList.remove('vis');
     confirm.classList.remove('vis');
+    pauseBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><rect x="4" y="3" width="4" height="14" rx="1"/><rect x="12" y="3" width="4" height="14" rx="1"/></svg>';
   }
 };
 
@@ -996,10 +999,6 @@ window.pauseHome = function() {
 
 window.pauseConfirmNo = function() {
   document.getElementById('pause-confirm').classList.remove('vis');
-  document.getElementById('hud-dropdown').classList.remove('vis');
-  document.getElementById('pause-dim').classList.remove('vis');
-  paused = false;
-  state = prevState;
 };
 
 function showStart() {
@@ -1654,7 +1653,7 @@ function drawMonthPop() {
   }
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.translate(W / 2, H * 0.15);
+  ctx.translate(W / 2, H * 0.22);
   ctx.scale(scale, scale);
   ctx.font = '900 48px ' + fontFam;
   ctx.fillStyle = '#fff';
@@ -2079,6 +2078,39 @@ loop();
 window.replayLevel = replayLevel;
 window.nextLevel = nextLevel;
 window.selectLevel = selectLevel;
+
+// ONE store / Toss SDK 라이프사이클 훅
+window.__gameHooks = {
+  onPause: function(reason) {
+    if (state === 'playing' && !paused) {
+      window.togglePause();
+    }
+    if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
+  },
+  onResume: function(ringerSilent) {
+    if (ringerSilent !== undefined && ringerSilent) {
+      soundMuted = true;
+      document.getElementById('ss-sound').classList.add('muted');
+      const pb = document.getElementById('pause-sound');
+      if (pb) pb.classList.add('muted');
+    }
+    if (audioCtx && audioCtx.state === 'suspended' && !soundMuted) audioCtx.resume();
+  },
+  onSave: function() {
+    try { localStorage.setItem('antcoin-lastlevel', currentLevel); } catch(e) {}
+  },
+  onBack: function() {
+    if (state === 'paused') {
+      window.togglePause();
+      return true;
+    }
+    if (state === 'playing') {
+      window.togglePause();
+      return true;
+    }
+    return false;
+  },
+};
 
 document.getElementById('ws').addEventListener('click', function(e) {
   if (e.target.closest('.win-btn')) return;
