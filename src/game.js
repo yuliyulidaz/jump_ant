@@ -598,8 +598,13 @@ function replayLevel() {
 }
 
 function nextLevel() {
-  if (currentLevel + 1 < LEVELS.length) selectLevel(currentLevel + 1);
-  else showStart();
+  if (currentLevel + 1 >= LEVELS.length) { showStart(); return; }
+  var next = currentLevel + 1;
+  if (currentLevel === 4 && window.__onestore && window.__onestore.showInterstitial) {
+    window.__onestore.showInterstitial(function() { selectLevel(next); });
+  } else {
+    selectLevel(next);
+  }
 }
 
 // ─── State ───

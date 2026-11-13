@@ -72,13 +72,31 @@ async function initOneStore() {
     sdkReady = true;
     console.log('[onestore] SDK 준비 완료, playerId:', info.playerId);
 
-    // 광고 프리로드 (placementId가 등록되면 여기에 추가)
-    // TODO: sdk.ads.loadRewarded({ placementId: 'rew_xxxxx' });
-    // TODO: sdk.ads.loadInterstitial({ placementId: 'int_xxxxx' });
+    sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
 
   } catch (e) {
     console.log('[onestore] 초기화 실패:', e.reason, e.message);
   }
 }
+
+window.__onestore.showInterstitial = function(callback) {
+  if (!sdkReady || !sdk) { if (callback) callback(); return; }
+  try {
+    sdk.ads.showInterstitial({
+      placementId: 'x99DV-CRL5-NB6J-YS4T',
+      onStart: function() {},
+      onComplete: function() {
+        sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
+        if (callback) callback();
+      },
+      onError: function() {
+        sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
+        if (callback) callback();
+      },
+    });
+  } catch (e) {
+    if (callback) callback();
+  }
+};
 
 initOneStore();
