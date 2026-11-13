@@ -611,7 +611,9 @@ function startCountdown(callback) {
   labelEl.textContent = '준비하세요';
   overlay.classList.add('vis');
 
-  if (window.__onestore && window.__onestore.preloadInterstitial) {
+  if (window.__toss && window.__toss.isAdSupported()) {
+    window.__toss.preloadAd();
+  } else if (window.__onestore && window.__onestore.preloadInterstitial) {
     window.__onestore.preloadInterstitial();
   }
 
@@ -646,12 +648,19 @@ function startCountdown(callback) {
 function nextLevel() {
   if (currentLevel + 1 >= LEVELS.length) { showStart(); return; }
   var next = currentLevel + 1;
-  if (currentLevel === 4 && window.__onestore && window.__onestore.showInterstitial) {
-    window.__onestore.showInterstitial(function() {
+  var afterAd = function() {
+    selectLevel(next);
+    state = 'countdown';
+    startCountdown(function() { state = 'playing'; });
+  };
+  if (currentLevel === 4) {
+    if (window.__toss && window.__toss.isAdSupported()) {
+      window.__toss.showAd(afterAd);
+    } else if (window.__onestore && window.__onestore.showInterstitial) {
+      window.__onestore.showInterstitial(afterAd);
+    } else {
       selectLevel(next);
-      state = 'countdown';
-      startCountdown(function() { state = 'playing'; });
-    });
+    }
   } else {
     selectLevel(next);
   }
