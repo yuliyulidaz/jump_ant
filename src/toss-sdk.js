@@ -7,15 +7,17 @@ try { setDeviceOrientation({ type: 'portrait' }); } catch(e) {}
 try { setScreenAwakeMode({ enabled: true }); } catch(e) {}
 
 // Back button: block during gameplay, allow close on start screen
-graniteEvent.addEventListener('backEvent', {
-  onEvent: () => {
-    const ss = document.getElementById('ss');
-    if (ss && ss.classList.contains('vis')) {
-      window.close();
-    }
-  },
-  onError: () => {},
-});
+try {
+  graniteEvent.addEventListener('backEvent', {
+    onEvent: () => {
+      const ss = document.getElementById('ss');
+      if (ss && ss.classList.contains('vis')) {
+        window.close();
+      }
+    },
+    onError: () => {},
+  });
+} catch(e) {}
 
 // Pause game audio when app goes to background
 document.addEventListener('visibilitychange', () => {
