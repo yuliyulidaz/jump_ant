@@ -38,28 +38,35 @@ try {
   tossAdSupported = false;
 }
 
+function doPreload() {
+  if (!tossAdSupported) return;
+  tossAdLoaded = false;
+  try {
+    loadFullScreenAd({
+      options: { adGroupId: TOSS_AD_GROUP_ID },
+      onEvent: function(event) {
+        if (event.type === 'loaded') {
+          tossAdLoaded = true;
+          console.log('[toss] 광고 프리로드 완료');
+        }
+      },
+      onError: function(error) {
+        console.log('[toss] 광고 프리로드 실패:', error);
+      },
+    });
+  } catch(e) {
+    console.log('[toss] loadFullScreenAd 호출 실패:', e);
+  }
+}
+
+// 지원되면 즉시 프리로드 시작
+if (tossAdSupported) {
+  doPreload();
+}
+
 window.__toss = {
   isAdSupported: () => tossAdSupported && typeof loadFullScreenAd === 'function',
-  preloadAd: function() {
-    if (!tossAdSupported) return;
-    tossAdLoaded = false;
-    try {
-      loadFullScreenAd({
-        options: { adGroupId: TOSS_AD_GROUP_ID },
-        onEvent: function(event) {
-          if (event.type === 'loaded') {
-            tossAdLoaded = true;
-            console.log('[toss] 광고 프리로드 완료');
-          }
-        },
-        onError: function(error) {
-          console.log('[toss] 광고 프리로드 실패:', error);
-        },
-      });
-    } catch(e) {
-      console.log('[toss] loadFullScreenAd 호출 실패:', e);
-    }
-  },
+  preloadAd: doPreload,
   showAd: function(callback) {
     if (!tossAdSupported || !tossAdLoaded) {
       if (callback) callback();
@@ -70,12 +77,14 @@ window.__toss = {
         options: { adGroupId: TOSS_AD_GROUP_ID },
         onEvent: function(event) {
           if (event.type === 'dismissed' || event.type === 'failedToShow') {
+            doPreload();
             if (callback) callback();
             callback = null;
           }
         },
         onError: function(error) {
           console.log('[toss] 광고 표시 실패:', error);
+          doPreload();
           if (callback) callback();
           callback = null;
         },
