@@ -648,7 +648,9 @@ function nextLevel() {
   var next = currentLevel + 1;
   if (currentLevel === 4 && window.__onestore && window.__onestore.showInterstitial) {
     window.__onestore.showInterstitial(function() {
-      startCountdown(function() { selectLevel(next); });
+      selectLevel(next);
+      state = 'countdown';
+      startCountdown(function() { state = 'playing'; });
     });
   } else {
     selectLevel(next);
@@ -2068,6 +2070,13 @@ function loop(timestamp) {
         hint.style.opacity = '0'; touchHintShown = false;
       }
     }
+  } else if (state==='countdown') {
+    drawGrid();
+    drawBgOverlays();
+    drawFgOverlays();
+    drawMonthLabels();
+    for (const c of candles) drawCandle(c);
+    drawCoin();
   } else if (state==='playing') {
     if (freezeFrames > 0) { freezeFrames--; }
     else {
