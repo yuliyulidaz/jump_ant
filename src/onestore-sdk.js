@@ -85,22 +85,16 @@ async function initOneStore() {
 
 window.__onestore.showInterstitial = function(callback) {
   if (!sdkReady || !sdk || !adsSupported) { if (callback) callback(); return; }
-  try {
-    sdk.ads.showInterstitial({
-      placementId: 'x99DV-CRL5-NB6J-YS4T',
-      onStart: function() {},
-      onComplete: function() {
-        sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
-        if (callback) callback();
-      },
-      onError: function() {
-        sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
-        if (callback) callback();
-      },
-    });
-  } catch (e) {
+  sdk.ads.showInterstitialAsync({
+    placementId: 'x99DV-CRL5-NB6J-YS4T',
+  }).then(function(result) {
+    sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
     if (callback) callback();
-  }
+  }).catch(function(e) {
+    console.log('[onestore] 전면광고 실패:', e.reason || e.message);
+    sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
+    if (callback) callback();
+  });
 };
 
 initOneStore();
