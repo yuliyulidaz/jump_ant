@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <title>수익 점프 개미</title>
+    <script type="module" crossorigin src="/jump_ant/assets/index-CrR3sF_g.js"></script>
+    <link rel="stylesheet" crossorigin href="/jump_ant/assets/index-asbcMMqX.css">
+  </head>
+  <body>
+    <div class="gc">
+      <div class="hud">
+        <div>
+          <div class="sv" id="hs">+0.0%</div>
+          <div class="hud-best"><span class="sl">BEST</span> <span id="hb">+0.0%</span></div>
+        </div>
+        <div class="hm"><div class="ct" id="hc"></div></div>
+        <div class="hud-right" id="hud-right">
+          <div class="hud-circle" id="hud-pause" onclick="togglePause()">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+              <rect x="4" y="3" width="4" height="14" rx="1"/>
+              <rect x="12" y="3" width="4" height="14" rx="1"/>
+            </svg>
+          </div>
+          <div class="hud-dropdown" id="hud-dropdown">
+            <div class="hud-circle" onclick="pauseRestart()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+              </svg>
+            </div>
+            <div class="hud-circle" onclick="pauseHome()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <div class="hud-circle" id="pause-sound" onclick="toggleSound()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sw1"/>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sw2"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pause-dim" id="pause-dim" onclick="togglePause()"></div>
+      <div class="pause-confirm" id="pause-confirm">
+        <div class="pause-confirm-text" id="pause-confirm-text"></div>
+        <div class="pause-confirm-btns">
+          <div class="pause-cbtn pause-cbtn-no" onclick="pauseConfirmNo()">아니오</div>
+          <div class="pause-cbtn pause-cbtn-yes" id="pause-confirm-yes">네</div>
+        </div>
+      </div>
+      <canvas id="g"></canvas>
+      <div class="ss-wrap vis" id="ss">
+        <div class="ss-arrow ss-arrow-l" id="ss-arrow-l">
+          <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
+            <path d="M20 4L6 20L20 36" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="ss-arrow ss-arrow-r" id="ss-arrow-r">
+          <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
+            <path d="M4 4L18 20L4 36" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="ss-top">
+          <div class="ss-title">
+            <div class="ss-t1">수익</div>
+            <div class="ss-t2">JUMP</div>
+            <div class="ss-t1">개미</div>
+          </div>
+        </div>
+        <div class="ss-mid">
+          <div class="ss-level"><span class="ss-period" id="ss-period">2020 상반기</span><span class="ss-sub" id="ss-sub">동학개미전쟁</span></div>
+          <div class="ss-best" id="ss-best">BEST +0.0%</div>
+        </div>
+        <div class="ss-dots-wrap">
+          <div class="ss-dots" id="ss-dots"></div>
+        </div>
+        <div class="ss-bottom">
+          <div class="ss-tap">TAP TO START</div>
+          <div class="disc">본 게임의 차트는 실제 시장 데이터가 아닌<br>큰 흐름만 참고한 창작물입니다</div>
+        </div>
+        <div class="ss-sound" id="ss-sound">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" id="sound-wave1"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" id="sound-wave2"/>
+          </svg>
+        </div>
+      </div>
+      <div class="touch-hint" id="tap-hint" style="opacity:0;top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 60px);">
+        <svg width="76" height="56" viewBox="0 0 76 56" fill="none">
+          <circle cx="24" cy="28" r="18" stroke="rgba(255,255,255,0.8)" stroke-width="2" fill="none"/>
+          <circle cx="24" cy="28" r="6" fill="rgba(255,255,255,0.7)"/>
+          <circle cx="52" cy="28" r="18" stroke="rgba(255,255,255,0.8)" stroke-width="2" fill="none"/>
+          <circle cx="52" cy="28" r="6" fill="rgba(255,255,255,0.7)"/>
+        </svg>
+        <div class="touch-hint-text">연타하여 빠르게 점프!</div>
+      </div>
+      <div class="touch-hint" id="touch-hint" style="opacity:0">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="18" stroke="rgba(255,255,255,0.8)" stroke-width="2" fill="none"/>
+          <circle cx="28" cy="28" r="6" fill="rgba(255,255,255,0.7)"/>
+        </svg>
+        <div class="touch-hint-text">화면을 탭하여 점프</div>
+      </div>
+      <div class="ov" id="gs">
+        <div class="skip-btn" id="gs-skip" style="opacity:0">SKIP ▸</div>
+        <div id="gs-inner" style="text-align:center"></div>
+        <div class="ts" style="margin-top:24px">탭하여 다시 시작</div>
+      </div>
+      <div class="ov" id="ws">
+        <div class="skip-btn" id="ws-skip" style="opacity:0">SKIP ▸</div>
+        <div id="ws-inner" style="text-align:center"></div>
+        <div id="ws-btns" style="opacity:0;transition:opacity 0.5s">
+          <div id="ws-end-msg" style="display:none;font-size:13px;color:var(--fg-dim);line-height:1.6;margin-bottom:16px;text-align:center">최종장까지 수익화 완료!<br>다음 장이 열리면 가장 먼저 달려주세요!</div>
+          <div class="win-btns">
+            <div class="win-btn retry" onclick="replayLevel()">다시하기</div>
+            <div class="win-btn next" id="ws-next" onclick="nextLevel()">다음 단계</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
