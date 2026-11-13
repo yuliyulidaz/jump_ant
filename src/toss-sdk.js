@@ -28,7 +28,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // ─── Toss Fullscreen Ad ───
-const TOSS_AD_GROUP_ID = 'ait-ad-test-interstitial-id';
+const TOSS_AD_GROUP_ID = 'ait.v2.live.95605d0e9e3542b3';
 let tossAdLoaded = false;
 let tossAdSupported = false;
 
