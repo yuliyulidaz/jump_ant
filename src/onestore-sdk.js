@@ -74,25 +74,25 @@ async function initOneStore() {
     console.log('[onestore] SDK 준비 완료, playerId:', info.playerId);
 
     adsSupported = sdk.ads.isSupported('interstitial');
-    if (adsSupported) {
-      sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
-    }
 
   } catch (e) {
     console.log('[onestore] 초기화 실패:', e.reason, e.message);
   }
 }
 
+window.__onestore.preloadInterstitial = function() {
+  if (!sdkReady || !sdk || !adsSupported) return;
+  sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
+};
+
 window.__onestore.showInterstitial = function(callback) {
   if (!sdkReady || !sdk || !adsSupported) { if (callback) callback(); return; }
   sdk.ads.showInterstitialAsync({
     placementId: 'x99DV-CRL5-NB6J-YS4T',
   }).then(function(result) {
-    sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
     if (callback) callback();
   }).catch(function(e) {
     console.log('[onestore] 전면광고 실패:', e.reason || e.message);
-    sdk.ads.loadInterstitial({ placementId: 'x99DV-CRL5-NB6J-YS4T' });
     if (callback) callback();
   });
 };

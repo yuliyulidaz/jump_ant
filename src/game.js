@@ -1325,6 +1325,9 @@ function win() {
   if (skipBtn) skipBtn.style.opacity = '0';
   spawnP(coin.x, coin.y-20, 'rgba(255,215,0,0.8)', 20, 8);
   spawnP(coin.x, coin.y-20, 'rgba(255,59,48,0.6)', 15, 6);
+  if (currentLevel === 4 && window.__onestore && window.__onestore.preloadInterstitial) {
+    window.__onestore.preloadInterstitial();
+  }
   setTimeout(()=>{
     document.getElementById('ws').classList.add('vis');
     animateScorecard(document.getElementById('ws-inner'), 'ws');
