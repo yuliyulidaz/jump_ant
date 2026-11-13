@@ -597,11 +597,59 @@ function replayLevel() {
   selectLevel(currentLevel);
 }
 
+function startCountdown(callback) {
+  var overlay = document.getElementById('cd-overlay');
+  var progress = document.getElementById('cd-progress');
+  var numEl = document.getElementById('cd-num');
+  var labelEl = document.getElementById('cd-label');
+  var circumference = 2 * Math.PI * 52;
+
+  progress.setAttribute('stroke-dashoffset', circumference);
+  progress.setAttribute('stroke', 'var(--gold,#FFD700)');
+  numEl.textContent = '3';
+  numEl.style.fontSize = '48px';
+  labelEl.textContent = '준비하세요';
+  overlay.classList.add('vis');
+
+  if (window.__onestore && window.__onestore.preloadInterstitial) {
+    window.__onestore.preloadInterstitial();
+  }
+
+  var startTime = null;
+  var totalDur = 3000;
+
+  function tick(ts) {
+    if (!startTime) startTime = ts;
+    var elapsed = ts - startTime;
+    var p = Math.min(elapsed / totalDur, 1);
+    var step = Math.min(Math.floor(elapsed / 1000), 2);
+    numEl.textContent = String(3 - step);
+    progress.setAttribute('stroke-dashoffset', circumference * (1 - p));
+
+    if (p < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      numEl.textContent = 'GO';
+      numEl.style.fontSize = '36px';
+      labelEl.textContent = '';
+      progress.setAttribute('stroke', '#4CD964');
+      setTimeout(function() {
+        overlay.classList.remove('vis');
+        numEl.style.fontSize = '48px';
+        if (callback) callback();
+      }, 400);
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
 function nextLevel() {
   if (currentLevel + 1 >= LEVELS.length) { showStart(); return; }
   var next = currentLevel + 1;
   if (currentLevel === 4 && window.__onestore && window.__onestore.showInterstitial) {
-    window.__onestore.showInterstitial(function() { selectLevel(next); });
+    window.__onestore.showInterstitial(function() {
+      startCountdown(function() { selectLevel(next); });
+    });
   } else {
     selectLevel(next);
   }
@@ -1325,9 +1373,6 @@ function win() {
   if (skipBtn) skipBtn.style.opacity = '0';
   spawnP(coin.x, coin.y-20, 'rgba(255,215,0,0.8)', 20, 8);
   spawnP(coin.x, coin.y-20, 'rgba(255,59,48,0.6)', 15, 6);
-  if (currentLevel === 4 && window.__onestore && window.__onestore.preloadInterstitial) {
-    window.__onestore.preloadInterstitial();
-  }
   setTimeout(()=>{
     document.getElementById('ws').classList.add('vis');
     animateScorecard(document.getElementById('ws-inner'), 'ws');

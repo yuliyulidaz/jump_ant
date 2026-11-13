@@ -120,6 +120,16 @@
           <div style="margin-top:24px;font-size:12px;color:var(--fg-dim);cursor:pointer;opacity:0.7;text-align:center;width:100%" onclick="showStart()">홈으로</div>
         </div>
       </div>
+      <div class="cd-overlay" id="cd-overlay">
+        <svg width="120" height="120" viewBox="0 0 120 120" id="cd-svg">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="6"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="var(--gold,#FFD700)" stroke-width="6"
+            stroke-linecap="round" stroke-dasharray="326.73" stroke-dashoffset="326.73"
+            transform="rotate(-90 60 60)" id="cd-progress"/>
+        </svg>
+        <div class="cd-num" id="cd-num">3</div>
+        <div class="cd-label" id="cd-label">준비하세요</div>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
