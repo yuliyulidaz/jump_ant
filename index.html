@@ -51,6 +51,16 @@
       </div>
       <canvas id="g"></canvas>
       <div class="ss-wrap vis" id="ss">
+        <div class="ss-arrow ss-arrow-l" id="ss-arrow-l">
+          <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
+            <path d="M20 4L6 20L20 36" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="ss-arrow ss-arrow-r" id="ss-arrow-r">
+          <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
+            <path d="M4 4L18 20L4 36" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <div class="ss-top">
           <div class="ss-title">
             <div class="ss-t1">수익</div>
@@ -59,12 +69,14 @@
           </div>
         </div>
         <div class="ss-mid">
-          <div class="ss-level"><span class="ss-num" id="ss-num">01</span><span class="ss-sep"></span><span class="ss-period" id="ss-period">2020 상반기</span><span class="ss-sub" id="ss-sub">동학개미전쟁</span></div>
+          <div class="ss-level"><span class="ss-period" id="ss-period">2020 상반기</span><span class="ss-sub" id="ss-sub">동학개미전쟁</span></div>
           <div class="ss-best" id="ss-best">BEST +0.0%</div>
+        </div>
+        <div class="ss-dots-wrap">
+          <div class="ss-dots" id="ss-dots"></div>
         </div>
         <div class="ss-bottom">
           <div class="ss-tap">TAP TO START</div>
-          <div class="ss-dots" id="ss-dots"></div>
           <div class="disc">본 게임의 차트는 실제 시장 데이터가 아닌<br>큰 흐름만 참고한 창작물입니다</div>
         </div>
         <div class="ss-sound" id="ss-sound">

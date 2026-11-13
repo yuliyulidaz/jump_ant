@@ -189,6 +189,322 @@ const MONTHS_H2 = [
         [28,'🐜 2873!! 역대 최고가!! 📈🚀','#FFD700']]}
 ];
 
+// ─── 2021 H1 Month Data ───
+const MONTHS_2021H1 = [
+  { name:'1월', count:28, safe:5,
+    blueExtra:0.05, rise:1.0, maxBlue:1, riseRange:8, blueDelay:8, bMin:18, bRange:40, gapExtra:0,
+    wp:[[0,2976],[0.3,3000],[0.5,3050],[0.8,3100],[1,3064]],
+    ev:[[0,'2021년! 코스피 3000시대 개막!🚀','#FFD700'],
+        [5,'3000 역사적 첫 돌파!!!!!','#FFD700'],
+        [10,'동학개미 1주년!! 우리가 해냈다','#FF3B30'],
+        [16,'올해도 풀매수 간다!!','#FF3B30'],
+        [22,'개미 예탁금 70조 돌파ㄷㄷ','#FF3B30']]},
+  { name:'2월', count:28, safe:3,
+    blueExtra:0.2, rise:1.3, maxBlue:2, riseRange:9, blueDelay:7, bMin:15, bRange:50, gapExtra:6,
+    wp:[[0,3064],[0.2,3100],[0.5,3050],[0.8,2980],[1,3012]],
+    ev:[[3,'미국 국채 금리 급등ㄷㄷ','#007AFF'],
+        [8,'성장주 조정 시작...ㅠㅠ','#007AFF'],
+        [14,'3000 깨질뻔ㅠㅠ 꽉잡아!!','#007AFF'],
+        [20,'개미들 BTD!! 저가 매수!!','#FF3B30'],
+        [24,'바닥 다졌다!! 반등 간다','#FF3B30']]},
+  { name:'3월', count:30, safe:2,
+    blueExtra:0.3, rise:1.5, maxBlue:3, riseRange:10, blueDelay:7, bMin:14, bRange:55, gapExtra:10,
+    wp:[[0,3012],[0.2,2980],[0.45,3000],[0.7,3050],[1,3070]],
+    ev:[[3,'금리 공포 계속...ㅠㅠ','#007AFF'],
+        [8,'카카오뱅크 상장 준비 소식!!','#FF3B30'],
+        [13,'개미 순매수 또 역대급ㄷㄷ','#FF3B30'],
+        [18,'백신 접종 시작!! 🏥','#FFD700'],
+        [23,'3000 회복!! 존버 승리!!','#FF3B30'],
+        [27,'거래대금 줄었다...조용하네','#8E8E93']]},
+  { name:'4월', count:28, safe:3,
+    blueExtra:0.15, rise:1.0, maxBlue:2, riseRange:8, blueDelay:6, bMin:16, bRange:45, gapExtra:8,
+    wp:[[0,3070],[0.3,3100],[0.5,3120],[0.7,3100],[1,3108]],
+    ev:[[3,'박스권 시작... 3100 왔다갔다','#8E8E93'],
+        [9,'거래량이 안 나온다ㅠㅠ','#8E8E93'],
+        [15,'공매도 재개ㄷㄷ 개미 반발!!','#007AFF'],
+        [21,'그래도 3000은 지켜!! 꽉잡아','#FF3B30']]},
+  { name:'5월', count:30, safe:2,
+    blueExtra:0.2, rise:1.2, maxBlue:2, riseRange:10, blueDelay:6, bMin:13, bRange:55, gapExtra:12,
+    wp:[[0,3108],[0.3,3150],[0.5,3180],[0.7,3150],[1,3188]],
+    ev:[[4,'셀인메이? 개미는 안 판다!!','#FF3B30'],
+        [10,'코스피 지루하다... 박스권ㅠ','#8E8E93'],
+        [16,'개미 이탈 시작?? 거래량↓','#007AFF'],
+        [22,'횡보장에서 버티는 게 실력이다','#8E8E93'],
+        [26,'비트코인 폭락ㄷㄷ 주식은??','#007AFF']]},
+  { name:'6월', count:32, safe:2,
+    blueExtra:0.25, rise:1.8, maxBlue:3, riseRange:14, blueDelay:5, bMin:14, bRange:55, gapExtra:6,
+    wp:[[0,3188],[0.2,3220],[0.4,3250],[0.6,3280],[0.85,3300],[1,3302]],
+    ev:[[3,'드디어 박스 탈출!! 가즈아!!','#FF3B30'],
+        [8,'3200 돌파!! 신고가 행진!!','#FFD700'],
+        [13,'삼전 8만원!! 국민주 만세','#FF3B30'],
+        [18,'3300 찍었다!!!! 미쳤다!!','#FFD700'],
+        [23,'반도체 슈퍼사이클 🔥🔥🔥','#FF3B30'],
+        [28,'🐜 3302!! 역대 최고가!! 📈🚀','#FFD700']]}
+];
+
+// ─── 2021 H2 Month Data ───
+const MONTHS_2021H2 = [
+  { name:'7월', count:28, safe:5,
+    blueExtra:0.1, rise:1.0, maxBlue:2, riseRange:8, blueDelay:7, bMin:16, bRange:45, gapExtra:4,
+    wp:[[0,3302],[0.15,3305],[0.4,3280],[0.7,3230],[1,3202]],
+    ev:[[0,'하반기 시작! 사상 최고가 3305!!','#FFD700'],
+        [4,'역대 최고가 갱신!! 🚀🚀','#FFD700'],
+        [10,'델타 변이 확산ㄷㄷ','#007AFF'],
+        [16,'외국인 매도 폭탄...ㅠㅠ','#007AFF'],
+        [22,'3200으로 후퇴... 괜찮겠지?','#007AFF']]},
+  { name:'8월', count:28, safe:3,
+    blueExtra:0.25, rise:1.2, maxBlue:2, riseRange:9, blueDelay:6, bMin:14, bRange:55, gapExtra:6,
+    wp:[[0,3202],[0.3,3150],[0.5,3050],[0.7,3000],[1,3130]],
+    ev:[[3,'테이퍼링이 뭔데...ㅠㅠ','#007AFF'],
+        [8,'양적완화 축소 공포!!','#007AFF'],
+        [13,'3000 터치ㄷㄷ 4개월만에','#007AFF'],
+        [18,'꽉 잡아!! 존버는 승리한다!!','#FF3B30'],
+        [23,'반등했다!! 3100 회복!!','#FF3B30']]},
+  { name:'9월', count:30, safe:2,
+    blueExtra:0.35, rise:1.3, maxBlue:3, riseRange:10, blueDelay:6, bMin:13, bRange:55, gapExtra:8,
+    wp:[[0,3130],[0.3,3100],[0.5,3050],[0.75,3000],[1,3069]],
+    ev:[[3,'에버그란데 디폴트 위기!!!','#007AFF'],
+        [8,'중국발 공포 글로벌 패닉ㄷㄷ','#007AFF'],
+        [13,'카카오 -30% 실화??ㅠㅠ','#007AFF'],
+        [18,'플랫폼 규제 공포...','#007AFF'],
+        [23,'3100 무너졌다ㅠㅠㅠㅠ','#007AFF'],
+        [27,'존버가 답인가...정말...','#8E8E93']]},
+  { name:'10월', count:28, safe:2,
+    blueExtra:0.3, rise:1.0, maxBlue:3, riseRange:8, blueDelay:5, bMin:12, bRange:60, gapExtra:10,
+    wp:[[0,3069],[0.2,3020],[0.45,2980],[0.6,2950],[0.8,2940],[1,2970]],
+    ev:[[3,'3000선 하회ㄷㄷ 반년만에','#007AFF'],
+        [8,'삼전 7만원대... 연중 최저','#007AFF'],
+        [13,'반도체 슈퍼사이클 끝??','#007AFF'],
+        [18,'중국 전력난 + 인플레ㅠㅠ','#007AFF'],
+        [23,'바닥이 어디야...ㅠㅠㅠ','#007AFF']]},
+  { name:'11월', count:30, safe:2,
+    blueExtra:0.35, rise:1.2, maxBlue:3, riseRange:10, blueDelay:5, bMin:12, bRange:60, gapExtra:10,
+    wp:[[0,2970],[0.3,2950],[0.5,2920],[0.7,2880],[0.9,2840],[1,2840]],
+    ev:[[3,'미국은 신고가인데 왜 우리만...','#007AFF'],
+        [9,'S&P +27% vs 코스피 +3%ㅠ','#007AFF'],
+        [15,'개미 사상 첫 월간 순매도ㄷㄷ','#007AFF'],
+        [20,'개미 이탈 시작...ㅠㅠㅠ','#007AFF'],
+        [25,'오미크론 변이 출현!!!','#007AFF'],
+        [28,'글로벌 급락ㅠㅠㅠㅠㅠ','#007AFF']]},
+  { name:'12월', count:32, safe:2,
+    blueExtra:0.2, rise:1.5, maxBlue:2, riseRange:12, blueDelay:5, bMin:14, bRange:50, gapExtra:6,
+    wp:[[0,2840],[0.2,2880],[0.4,2920],[0.6,2960],[0.8,2980],[1,2977]],
+    ev:[[3,'반도체 중심 반등 시도!!','#FF3B30'],
+        [8,'연말 랠리 올까??','#FF3B30'],
+        [14,'개인 사상 최대 순매도ㅠ','#007AFF'],
+        [20,'3000 회복 실패...ㅠㅠ','#007AFF'],
+        [26,'올해 수익률 +3.6%... 이게 맞아?','#8E8E93'],
+        [30,'🐜 그래도 개미는 포기 안 해 📉','#FFD700']]}
+];
+
+// ─── 2022 H1 Month Data ───
+const MONTHS_2022H1 = [
+  { name:'1월', count:28, safe:4,
+    blueExtra:0.15, rise:1.0, maxBlue:2, riseRange:8, blueDelay:7, bMin:15, bRange:50, gapExtra:6, blueSink:0,
+    wp:[[0,2990],[0.3,2950],[0.5,2850],[0.75,2770],[1,2730]],
+    ev:[[0,'2022년! 올해는 회복이다...?','#8E8E93'],
+        [5,'연준 긴축 시그널ㄷㄷ','#007AFF'],
+        [10,'연초부터 떨어진다ㅠㅠ','#007AFF'],
+        [18,'LG엔솔 상장!! 수급 충격','#007AFF'],
+        [23,'고점 대비 -10%... 시작부터','#007AFF']]},
+  { name:'2월', count:28, safe:2,
+    blueExtra:0.25, rise:1.2, maxBlue:2, riseRange:9, blueDelay:6, bMin:14, bRange:55, gapExtra:8, blueSink:0.1,
+    wp:[[0,2730],[0.3,2720],[0.6,2680],[0.8,2710],[1,2700]],
+    ev:[[3,'설마 전쟁이...?','#8E8E93'],
+        [9,'우크라이나 전쟁 발발!!!','#007AFF'],
+        [14,'유가 급등ㄷㄷ 인플레!!','#007AFF'],
+        [20,'글로벌 공포... 2700 위태','#007AFF'],
+        [24,'전쟁이 시장을 집어삼킨다','#007AFF']]},
+  { name:'3월', count:28, safe:3,
+    blueExtra:0.15, rise:1.0, maxBlue:2, riseRange:8, blueDelay:6, bMin:15, bRange:45, gapExtra:6, blueSink:0.2,
+    wp:[[0,2700],[0.3,2720],[0.5,2740],[0.7,2760],[1,2750]],
+    ev:[[3,'전쟁 충격 소화... 반등?','#FF3B30'],
+        [10,'금리 인상 0.25%p 시작','#007AFF'],
+        [16,'인플레가 문제다...','#8E8E93'],
+        [22,'소폭 반등!! 숨 좀 쉬자','#FF3B30']]},
+  { name:'4월', count:28, safe:2,
+    blueExtra:0.25, rise:1.0, maxBlue:3, riseRange:9, blueDelay:5, bMin:13, bRange:55, gapExtra:8, blueSink:0.3,
+    wp:[[0,2750],[0.3,2730],[0.5,2710],[0.7,2700],[1,2690]],
+    ev:[[3,'자이언트 스텝 예고ㄷㄷ','#007AFF'],
+        [9,'0.5%p 인상한다고??!!','#007AFF'],
+        [15,'인플레 8.5%!! 미쳤다','#007AFF'],
+        [21,'성장주 박살ㅠㅠㅠ','#007AFF']]},
+  { name:'5월', count:30, safe:2,
+    blueExtra:0.35, rise:1.2, maxBlue:3, riseRange:10, blueDelay:5, bMin:12, bRange:60, gapExtra:10, blueSink:0.4,
+    wp:[[0,2690],[0.2,2650],[0.45,2600],[0.65,2580],[0.85,2610],[1,2600]],
+    ev:[[3,'루나 테라 대폭락!!!!!!','#007AFF'],
+        [8,'40조가 3일만에 증발ㄷㄷ','#007AFF'],
+        [13,'크립토 시장 붕괴!!','#007AFF'],
+        [18,'투자 심리 완전 얼어붙음','#007AFF'],
+        [23,'2600선마저 위험...ㅠㅠ','#007AFF'],
+        [27,'바닥이 어디야 진짜로...','#007AFF']]},
+  { name:'6월', count:32, safe:2,
+    blueExtra:0.3, rise:1.5, maxBlue:3, riseRange:12, blueDelay:4, bMin:12, bRange:60, gapExtra:8, blueSink:0.4,
+    wp:[[0,2600],[0.2,2550],[0.4,2480],[0.6,2400],[0.8,2350],[1,2333]],
+    ev:[[3,'자이언트 스텝 현실화!!','#007AFF'],
+        [8,'0.75%p!! 역대급 인상!!','#007AFF'],
+        [13,'2500 붕괴ㅠㅠㅠㅠ','#007AFF'],
+        [18,'2400도 무너졌다...','#007AFF'],
+        [23,'상반기 -21.7%!! 32년 최악','#007AFF'],
+        [28,'🐜 수업료가 너무 비싸다... 📉','#007AFF']]}
+];
+
+// ─── 2022 H2 Month Data ───
+const MONTHS_2022H2 = [
+  { name:'7월', count:28, safe:4,
+    blueExtra:0.15, rise:1.0, maxBlue:2, riseRange:9, blueDelay:6, bMin:14, bRange:50, gapExtra:6, blueSink:0.4,
+    wp:[[0,2333],[0.15,2291],[0.4,2350],[0.7,2420],[1,2450]],
+    ev:[[3,'연중 최저 2291ㄷㄷ','#007AFF'],
+        [8,'낙폭 과대!! 반등 온다!!','#FF3B30'],
+        [14,'바닥 찍었나?? 줍줍!!','#FF3B30'],
+        [20,'2400 회복!! 가보자!!','#FF3B30']]},
+  { name:'8월', count:28, safe:2,
+    blueExtra:0.25, rise:1.0, maxBlue:2, riseRange:8, blueDelay:5, bMin:13, bRange:55, gapExtra:8, blueSink:0.4,
+    wp:[[0,2450],[0.3,2480],[0.5,2500],[0.7,2480],[1,2470]],
+    ev:[[3,'잭슨홀 미팅 주목!!','#8E8E93'],
+        [9,'파월 매파 발언ㄷㄷ','#007AFF'],
+        [15,'금리 더 올린다고??','#007AFF'],
+        [21,'2400대에서 못 벗어난다ㅠ','#8E8E93']]},
+  { name:'9월', count:30, safe:2,
+    blueExtra:0.4, rise:1.3, maxBlue:3, riseRange:10, blueDelay:4, bMin:12, bRange:60, gapExtra:10, blueSink:0.4,
+    wp:[[0,2470],[0.2,2400],[0.4,2350],[0.6,2280],[0.8,2200],[1,2155]],
+    ev:[[3,'레고랜드 ABCP 사태!!!','#007AFF'],
+        [8,'채권시장 패닉ㄷㄷㄷ','#007AFF'],
+        [13,'돈줄이 마른다...ㅠㅠ','#007AFF'],
+        [18,'2300도 무너졌다!!','#007AFF'],
+        [23,'2200!! 끝이 안 보여ㅠ','#007AFF'],
+        [28,'연중 최저 2155... 끝인가','#007AFF']]},
+  { name:'10월', count:28, safe:2,
+    blueExtra:0.3, rise:1.2, maxBlue:3, riseRange:10, blueDelay:4, bMin:12, bRange:55, gapExtra:8, blueSink:0.4,
+    wp:[[0,2155],[0.2,2200],[0.4,2230],[0.6,2250],[0.8,2270],[1,2290]],
+    ev:[[3,'바닥 찍었다!! 반등!!','#FF3B30'],
+        [8,'카카오 데이터센터 화재ㄷㄷ','#007AFF'],
+        [13,'카카오 -30%... 또...ㅠ','#007AFF'],
+        [18,'그래도 지수는 반등 중!!','#FF3B30'],
+        [23,'2200에서 살아남은 개미들','#FF3B30']]},
+  { name:'11월', count:30, safe:3,
+    blueExtra:0.2, rise:1.5, maxBlue:2, riseRange:12, blueDelay:5, bMin:14, bRange:50, gapExtra:6, blueSink:0.4,
+    wp:[[0,2290],[0.2,2350],[0.45,2400],[0.65,2440],[0.85,2460],[1,2470]],
+    ev:[[3,'반등 시도!! 2400 간다!!','#FF3B30'],
+        [9,'바닥 찍었나?? 기대감!!','#FF3B30'],
+        [15,'연말 랠리 가능??','#FF3B30'],
+        [22,'2400 회복!! 가즈아!!','#FF3B30'],
+        [27,'아직 끝나지 않았다!!','#FF3B30']]},
+  { name:'12월', count:32, safe:2,
+    blueExtra:0.25, rise:1.8, maxBlue:3, riseRange:14, blueDelay:4, bMin:12, bRange:60, gapExtra:8, blueSink:0.4,
+    wp:[[0,2470],[0.15,2440],[0.35,2380],[0.5,2330],[0.7,2280],[0.85,2250],[1,2236]],
+    ev:[[3,'연말 랠리는 없었다...','#007AFF'],
+        [8,'개인 순매도 지속ㅠㅠ','#007AFF'],
+        [14,'3000은 꿈도 못 꿔...','#007AFF'],
+        [20,'네이버 -53% 카카오 -54%','#007AFF'],
+        [26,'연간 -25%... 2년치 수익 증발','#007AFF'],
+        [30,'🐜 2236 마감... 내년엔... 📉','#8E8E93']]}
+];
+
+// ─── 2023 H1 Month Data ───
+const MONTHS_2023H1 = [
+  { name:'1월', count:28, safe:4,
+    blueExtra:0.15, rise:1.0, maxBlue:2, riseRange:9, blueDelay:6, bMin:14, bRange:50, gapExtra:6, blueSink:0.3,
+    wp:[[0,2236],[0.2,2300],[0.4,2380],[0.7,2420],[1,2450]],
+    ev:[[0,'2023년! 올해는 진짜 반등!!','#FF3B30'],
+        [5,'새해 첫 거래일 +2.5%!!','#FF3B30'],
+        [10,'외국인 매수 폭탄ㄷㄷ','#FF3B30'],
+        [18,'2400 회복!! 부활이다!!','#FF3B30'],
+        [23,'작년 악몽은 끝났다!!','#FFD700']]},
+  { name:'2월', count:28, safe:3,
+    blueExtra:0.2, rise:1.0, maxBlue:2, riseRange:8, blueDelay:6, bMin:14, bRange:50, gapExtra:6, blueSink:0.4,
+    wp:[[0,2450],[0.3,2440],[0.5,2430],[0.7,2440],[1,2430]],
+    ev:[[3,'금리 인상 아직 안 끝남...','#007AFF'],
+        [9,'횡보... 눈치 보는 중','#8E8E93'],
+        [15,'미국 CPI 발표 주목','#8E8E93'],
+        [22,'2400대 유지!! 선방이다','#FF3B30']]},
+  { name:'3월', count:28, safe:3,
+    blueExtra:0.25, rise:1.2, maxBlue:2, riseRange:9, blueDelay:5, bMin:13, bRange:55, gapExtra:8, blueSink:0.4,
+    wp:[[0,2430],[0.15,2380],[0.35,2350],[0.5,2400],[0.75,2460],[1,2480]],
+    ev:[[3,'SVB 파산!!! 은행 위기??','#007AFF'],
+        [8,'금융 공포 확산ㄷㄷ','#007AFF'],
+        [13,'크레디트스위스까지??!!','#007AFF'],
+        [18,'진정됐다!! V자 반등!!','#FF3B30'],
+        [23,'위기를 기회로!! 줍줍!!','#FF3B30']]},
+  { name:'4월', count:28, safe:3,
+    blueExtra:0.15, rise:1.0, maxBlue:2, riseRange:9, blueDelay:6, bMin:14, bRange:50, gapExtra:6, blueSink:0.3,
+    wp:[[0,2480],[0.3,2490],[0.6,2500],[0.8,2510],[1,2500]],
+    ev:[[3,'2500 터치!! 가보자!!','#FF3B30'],
+        [9,'2차전지 뭐야 이거??','#FFD700'],
+        [15,'에코프로 신고가ㄷㄷ','#FFD700'],
+        [22,'테마주의 시대가 왔다!!','#FF3B30']]},
+  { name:'5월', count:30, safe:3,
+    blueExtra:0.2, rise:1.2, maxBlue:2, riseRange:10, blueDelay:5, bMin:13, bRange:55, gapExtra:8, blueSink:0.4,
+    wp:[[0,2500],[0.2,2520],[0.45,2550],[0.7,2560],[1,2570]],
+    ev:[[3,'에코프로 +600%!!!!!!','#FFD700'],
+        [8,'2차전지 광풍ㄷㄷㄷ','#FFD700'],
+        [13,'개미 몰려든다!! 거래량 폭발','#FF3B30'],
+        [19,'나도 2차전지 샀다!!','#FF3B30'],
+        [25,'2500 안착!! 올해는 다르다','#FF3B30']]},
+  { name:'6월', count:32, safe:2,
+    blueExtra:0.25, rise:1.5, maxBlue:3, riseRange:12, blueDelay:5, bMin:13, bRange:55, gapExtra:8, blueSink:0.4,
+    wp:[[0,2570],[0.3,2560],[0.5,2570],[0.7,2580],[1,2565]],
+    ev:[[3,'AI 테마 합류!! 엔비디아!!','#FFD700'],
+        [8,'반도체+2차전지 쌍끌이','#FF3B30'],
+        [14,'거래량 역대급ㄷㄷ','#FF3B30'],
+        [20,'상반기 +14.7%!! 부활!!','#FFD700'],
+        [26,'🐜 개미의 반격이 시작됐다!! 🚀','#FFD700']]}
+];
+
+// ─── 2023 H2 Month Data ───
+const MONTHS_2023H2 = [
+  { name:'7월', count:28, safe:4,
+    blueExtra:0.15, rise:1.0, maxBlue:2, riseRange:9, blueDelay:6, bMin:14, bRange:50, gapExtra:6, blueSink:0.3,
+    wp:[[0,2565],[0.2,2590],[0.5,2620],[0.8,2625],[1,2630]],
+    ev:[[3,'2차전지 최고조!!','#FFD700'],
+        [8,'거래량 반도체 추월ㄷㄷ','#FFD700'],
+        [14,'에코프로 시총 100조??!!','#FFD700'],
+        [20,'모두가 2차전지를 산다','#FF3B30']]},
+  { name:'8월', count:28, safe:2,
+    blueExtra:0.3, rise:1.2, maxBlue:3, riseRange:9, blueDelay:5, bMin:13, bRange:55, gapExtra:8, blueSink:0.4,
+    wp:[[0,2630],[0.2,2600],[0.45,2580],[0.7,2560],[1,2560]],
+    ev:[[3,'2차전지 거품 경고!!','#007AFF'],
+        [9,'에코프로 급락 시작ㅠ','#007AFF'],
+        [14,'물린 개미들... 또...','#007AFF'],
+        [20,'바닥인 줄 알고 샀는데ㅠ','#007AFF'],
+        [24,'2600 깨졌다...','#007AFF']]},
+  { name:'9월', count:30, safe:2,
+    blueExtra:0.35, rise:1.3, maxBlue:3, riseRange:10, blueDelay:4, bMin:12, bRange:60, gapExtra:10, blueSink:0.5,
+    wp:[[0,2560],[0.2,2530],[0.45,2500],[0.7,2480],[1,2460]],
+    ev:[[3,'에코프로 반토막ㅠㅠㅠ','#007AFF'],
+        [8,'2차전지 테마 붕괴!!','#007AFF'],
+        [13,'개미 손실 눈덩이...','#007AFF'],
+        [18,'미국 금리 동결!! 근데...','#8E8E93'],
+        [23,'고금리 장기화 공포','#007AFF'],
+        [28,'2500도 못 지켰다ㅠ','#007AFF']]},
+  { name:'10월', count:28, safe:2,
+    blueExtra:0.35, rise:1.2, maxBlue:3, riseRange:10, blueDelay:3, bMin:12, bRange:60, gapExtra:10, blueSink:0.5,
+    wp:[[0,2460],[0.2,2400],[0.4,2350],[0.6,2300],[0.8,2280],[1,2280]],
+    ev:[[3,'이스라엘-하마스 전쟁!!','#007AFF'],
+        [8,'중동 리스크 확산ㄷㄷ','#007AFF'],
+        [13,'유가 급등... 또 인플레?','#007AFF'],
+        [18,'2300 붕괴ㅠㅠ','#007AFF'],
+        [23,'연저점 2280... 작년 악몽 재현?','#007AFF']]},
+  { name:'11월', count:30, safe:4,
+    blueExtra:0.1, rise:1.5, maxBlue:2, riseRange:12, blueDelay:6, bMin:15, bRange:45, gapExtra:4, blueSink:0.2,
+    wp:[[0,2280],[0.15,2350],[0.35,2420],[0.55,2480],[0.8,2520],[1,2535]],
+    ev:[[3,'공매도 전면 금지!!!!!!','#FFD700'],
+        [8,'하루 만에 +5%ㄷㄷㄷ','#FFD700'],
+        [13,'개미 환호!! 드디어!!','#FF3B30'],
+        [18,'2500 회복!! 기적이다!!','#FF3B30'],
+        [23,'개미가 이겼다!!!!!','#FFD700'],
+        [27,'반등 랠리 계속!!','#FF3B30']]},
+  { name:'12월', count:32, safe:3,
+    blueExtra:0.15, rise:1.8, maxBlue:2, riseRange:14, blueDelay:5, bMin:14, bRange:50, gapExtra:6, blueSink:0.3,
+    wp:[[0,2535],[0.2,2560],[0.4,2590],[0.6,2620],[0.8,2640],[1,2655]],
+    ev:[[3,'연말 랠리!! 산타가 왔다!!','#FF3B30'],
+        [8,'외국인 순매수 전환!!','#FF3B30'],
+        [14,'2600 돌파!!','#FFD700'],
+        [20,'연간 +18.7%!! 부활의 해!!','#FFD700'],
+        [26,'🐜 2655 마감!! 내년엔 3000?! 🚀','#FFD700'],
+        [30,'개미는 포기하지 않는다!!','#FFD700']]}
+];
+
 // ─── Level Config ───
 const LEVELS = [
   { months:MONTHS_H1, title:'2020 상반기', sub:'동학개미전쟁',
@@ -196,7 +512,25 @@ const LEVELS = [
     tints:['#FFD700','#007AFF','#007AFF','#FF3B30','#FFD700','#FFD700'] },
   { months:MONTHS_H2, title:'2020 하반기', sub:'BBIG와 백신 랠리',
     priceBase:2050, priceSpan:900,
-    tints:['#FFD700','#007AFF','#007AFF','#007AFF','#FFD700','#FFD700'] }
+    tints:['#FFD700','#007AFF','#007AFF','#007AFF','#FFD700','#FFD700'] },
+  { months:MONTHS_2021H1, title:'2021 상반기', sub:'3000시대와 박스권',
+    priceBase:2900, priceSpan:500,
+    tints:['#FFD700','#007AFF','#007AFF','#8E8E93','#8E8E93','#FFD700'] },
+  { months:MONTHS_2021H2, title:'2021 하반기', sub:'3000의 저주',
+    priceBase:2800, priceSpan:600,
+    tints:['#FFD700','#007AFF','#007AFF','#007AFF','#007AFF','#8E8E93'] },
+  { months:MONTHS_2022H1, title:'2022 상반기', sub:'끝없는 추락',
+    priceBase:2200, priceSpan:900,
+    tints:['#007AFF','#007AFF','#FF3B30','#007AFF','#007AFF','#007AFF'] },
+  { months:MONTHS_2022H2, title:'2022 하반기', sub:'바닥을 찍다',
+    priceBase:2100, priceSpan:500,
+    tints:['#FF3B30','#8E8E93','#007AFF','#FF3B30','#FF3B30','#007AFF'] },
+  { months:MONTHS_2023H1, title:'2023 상반기', sub:'에코프로 광풍',
+    priceBase:2200, priceSpan:500,
+    tints:['#FF3B30','#8E8E93','#007AFF','#FF3B30','#FFD700','#FFD700'] },
+  { months:MONTHS_2023H2, title:'2023 하반기', sub:'거품과 반등',
+    priceBase:2200, priceSpan:600,
+    tints:['#FFD700','#007AFF','#007AFF','#007AFF','#FFD700','#FF3B30'] }
 ];
 let currentLevel = 0;
 let MONTHS = MONTHS_H1;
@@ -230,7 +564,6 @@ function generateDecoCandles() {
 function renderStartScreen() {
   const lvl = LEVELS[currentLevel];
   const el = (id) => document.getElementById(id);
-  el('ss-num').textContent = String(currentLevel + 1).padStart(2, '0');
   el('ss-period').textContent = lvl.title;
   el('ss-sub').textContent = lvl.sub;
   let lvlBest = 0;
@@ -247,6 +580,10 @@ function renderStartScreen() {
   } else {
     dotsEl.style.display = 'none';
   }
+  const arrowL = el('ss-arrow-l');
+  const arrowR = el('ss-arrow-r');
+  if (arrowL) arrowL.style.display = currentLevel > 0 ? '' : 'none';
+  if (arrowR) arrowR.style.display = (currentLevel < unlockedLevel && currentLevel < LEVELS.length - 1) ? '' : 'none';
 }
 window.switchLevel = function(i) {
   if (i >= 0 && i <= unlockedLevel && i < LEVELS.length) {
@@ -359,14 +696,17 @@ function priceToY(price) {
 
 // ─── Candles ───
 let candles = [];
+let candleXs = [];
 
 function initCandles() {
   candles = [];
+  candleXs = [];
   monthStarts = [];
   allEvents = [];
   let gIdx = 0;
   let blueRun = 0;
   let prevPrice = 0;
+  let gapAccum = 0;
 
   for (let m = 0; m < MONTHS.length; m++) {
     monthStarts.push(gIdx);
@@ -377,7 +717,8 @@ function initCandles() {
     }
 
     for (let i = 0; i < mo.count; i++) {
-      const x = 100 + gIdx * CSTEP;
+      if (i > 0 && mo.gapExtra) gapAccum += Math.random() * mo.gapExtra;
+      const x = 100 + gIdx * CSTEP + gapAccum;
       const t = mo.count > 1 ? i / (mo.count - 1) : 0;
       const basePrice = wpLerp(mo.wp, t);
       const price = basePrice + (Math.random() - 0.5) * 25;
@@ -409,6 +750,7 @@ function initCandles() {
         isRed, crumbleTimer: -1, crumbleOff: 0, opacity: 1,
         scored: false, idx: gIdx, month: m
       });
+      candleXs.push(x);
 
       prevPrice = price;
       gIdx++;
@@ -453,7 +795,7 @@ function onDown(e) {
   if (state === 'paused') return;
   if (state === 'dead') {
     if (frame > deadFrame+8) {
-      if (!winReady) { skipScorecard(); } else { showStart(); }
+      if (!winReady) { skipScorecard(); } else { selectLevel(currentLevel); }
     }
     return;
   }
@@ -528,7 +870,7 @@ function shake(n) {
 function checkEvents() {
   for (const ev of allEvents) {
     if (triggeredEvents.has(ev.idx)) continue;
-    const evX = 100 + ev.idx * CSTEP;
+    const evX = candleXs[ev.idx] || (100 + ev.idx * CSTEP);
     if (coin.x >= evX - CSTEP) {
       triggeredEvents.add(ev.idx);
       eventText = ev.text;
@@ -539,7 +881,7 @@ function checkEvents() {
 
   // Update current month
   for (let m = MONTHS.length - 1; m >= 0; m--) {
-    const mX = 100 + monthStarts[m] * CSTEP;
+    const mX = candleXs[monthStarts[m]] || (100 + monthStarts[m] * CSTEP);
     if (coin.x >= mX - CSTEP) {
       if (m !== curMonth) {
         monthScores[curMonth] = score - prevMonthScore;
@@ -565,7 +907,7 @@ function checkEvents() {
 
 let launchTimer = 0;
 function checkWin() {
-  const lastX = 100 + (totalCandles - 1) * CSTEP;
+  const lastX = candleXs[totalCandles - 1] || (100 + (totalCandles - 1) * CSTEP);
   if (coin.x >= lastX && state === 'playing') {
     state = 'launching'; launchTimer = 0;
     coin.vy = 0; coin.expression = 'happy';
@@ -581,6 +923,7 @@ let tapHintShown = false;
 let tapHintCount = 0;
 function selectLevel(lvl) {
   currentLevel = lvl;
+  try { localStorage.setItem('antcoin-lastlevel', lvl); } catch(e) {}
   MONTHS = LEVELS[lvl].months;
   loadBest();
   startGame();
@@ -661,7 +1004,9 @@ window.pauseConfirmNo = function() {
 
 function showStart() {
   state = 'start'; paused = false;
-  currentLevel = Math.min(unlockedLevel, LEVELS.length - 1);
+  let lastPlayed = 0;
+  try { lastPlayed = parseInt(localStorage.getItem('antcoin-lastlevel')) || 0; } catch(e) {}
+  currentLevel = Math.min(lastPlayed, unlockedLevel, LEVELS.length - 1);
   generateDecoCandles();
   camX = 0;
   renderStartScreen();
@@ -703,8 +1048,33 @@ function tapToStart() {
   state = 'startjump';
   launchStartTimer = 0;
 }
+let secretTaps = 0, secretTimer = 0;
+function handleSecretTap(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  clearTimeout(secretTimer);
+  secretTaps++;
+  if (secretTaps >= 5) {
+    secretTaps = 0;
+    unlockedLevel = LEVELS.length - 1;
+    try { localStorage.setItem('antcoin-unlocked', unlockedLevel); } catch(e2) {}
+    renderStartScreen();
+    shake(6);
+  }
+  secretTimer = setTimeout(() => { secretTaps = 0; }, 800);
+}
+document.querySelector('.ss-title').addEventListener('touchend', handleSecretTap);
+document.querySelector('.ss-title').addEventListener('click', handleSecretTap);
+document.getElementById('ss-arrow-l').addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (currentLevel > 0) switchLevel(currentLevel - 1);
+});
+document.getElementById('ss-arrow-r').addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (currentLevel < unlockedLevel && currentLevel < LEVELS.length - 1) switchLevel(currentLevel + 1);
+});
 document.getElementById('ss').addEventListener('click', function(e) {
-  if (e.target.closest('.ss-sound') || e.target.closest('.ss-dot')) return;
+  if (e.target.closest('.ss-sound') || e.target.closest('.ss-dot') || e.target.closest('.ss-title') || e.target.closest('.ss-arrow')) return;
   tapToStart();
 });
 document.getElementById('ss-sound').addEventListener('click', function(e) {
@@ -712,22 +1082,54 @@ document.getElementById('ss-sound').addEventListener('click', function(e) {
   toggleSound();
 });
 
-let swipeStartX = 0;
+let swipeStartX = 0, swipeDX = 0, swiping = false;
+const ssMid = document.querySelector('.ss-mid');
+const ssBottom = document.querySelector('.ss-bottom');
+function setSwipeOffset(dx) {
+  const clamped = Math.max(-120, Math.min(120, dx));
+  const t = `translateX(${clamped}px)`;
+  ssMid.style.transform = t;
+  ssBottom.style.transform = t;
+}
+function snapBack() {
+  ssMid.style.transition = 'transform 0.25s ease-out';
+  ssBottom.style.transition = 'transform 0.25s ease-out';
+  ssMid.style.transform = '';
+  ssBottom.style.transform = '';
+  setTimeout(() => {
+    ssMid.style.transition = '';
+    ssBottom.style.transition = '';
+  }, 260);
+}
 document.getElementById('ss').addEventListener('touchstart', function(e) {
   swipeStartX = e.touches[0].clientX;
+  swipeDX = 0;
+  swiping = false;
+  ssMid.style.transition = '';
+  ssBottom.style.transition = '';
+}, {passive:true});
+document.getElementById('ss').addEventListener('touchmove', function(e) {
+  swipeDX = e.touches[0].clientX - swipeStartX;
+  if (Math.abs(swipeDX) > 10) swiping = true;
+  if (swiping) setSwipeOffset(swipeDX);
 }, {passive:true});
 document.getElementById('ss').addEventListener('touchend', function(e) {
-  if (e.target.closest('.ss-sound') || e.target.closest('.ss-dot')) return;
-  const dx = (e.changedTouches[0]?.clientX || 0) - swipeStartX;
-  if (Math.abs(dx) > 50) {
+  if (e.target.closest('.ss-sound') || e.target.closest('.ss-dot') || e.target.closest('.ss-title') || e.target.closest('.ss-arrow')) return;
+  if (swiping && Math.abs(swipeDX) > 40) {
     e.preventDefault();
-    if (dx < 0 && currentLevel < unlockedLevel && currentLevel < LEVELS.length - 1) {
-      switchLevel(currentLevel + 1);
-    } else if (dx > 0 && currentLevel > 0) {
-      switchLevel(currentLevel - 1);
+    let switched = false;
+    if (swipeDX < 0 && currentLevel < unlockedLevel && currentLevel < LEVELS.length - 1) {
+      switchLevel(currentLevel + 1); switched = true;
+    } else if (swipeDX > 0 && currentLevel > 0) {
+      switchLevel(currentLevel - 1); switched = true;
     }
+    if (!switched) snapBack();
+    else { ssMid.style.transform = ''; ssBottom.style.transform = ''; }
+    swiping = false;
     return;
   }
+  ssMid.style.transform = ''; ssBottom.style.transform = '';
+  swiping = false;
   e.preventDefault();
   tapToStart();
 });
@@ -1124,6 +1526,23 @@ function updateCoin() {
 function updateCandles() {
   for (const c of candles) {
     if (c.active === false) continue;
+    const mo = MONTHS[c.month];
+    if (!c.isRed && mo.blueSink && c.crumbleTimer !== -2) {
+      const onIt = coin.curCandle === c;
+      const nearPlayer = c.x > coin.x - CSTEP * 2 && c.x < coin.x + CSTEP * 5;
+      if (onIt || nearPlayer) {
+        const sinkSpeed = onIt ? mo.blueSink * 3 : mo.blueSink;
+        const sinkFloor = H - 50;
+        if (onIt || c.botY < sinkFloor) {
+          c.topY += sinkSpeed;
+          c.botY += sinkSpeed;
+          c.wickTop += sinkSpeed;
+          c.wickBot += sinkSpeed;
+          if (onIt) coin.y += sinkSpeed;
+        }
+      }
+      if (c.topY > H + 80) { c.opacity = 0; c.crumbleTimer = -2; }
+    }
     if (c.crumbleTimer > 0) { c.crumbleTimer--; }
     else if (c.crumbleTimer === 0) {
       c.crumbleOff += 4;
@@ -1185,12 +1604,22 @@ function drawGrid() {
   ctx.fillStyle = 'rgba(255,59,48,0.35)';
   ctx.textAlign = 'left';
   ctx.fillText('상한가', 8, sanghanY - 4);
+
+  if (state === 'start') {
+    ctx.save();
+    ctx.font = '800 160px ' + fontFam;
+    ctx.fillStyle = 'rgba(255,215,0,0.30)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(String(currentLevel + 1).padStart(2, '0'), W / 2, H / 2);
+    ctx.restore();
+  }
 }
 
 function drawMonthLabels() {
 
   for (let m = 0; m < MONTHS.length; m++) {
-    const sx = 100 + monthStarts[m] * CSTEP - camX;
+    const sx = (candleXs[monthStarts[m]] || (100 + monthStarts[m] * CSTEP)) - camX;
     if (sx < -100 || sx > W + 100) continue;
 
     ctx.strokeStyle = 'rgba(255,255,255,0.08)';
