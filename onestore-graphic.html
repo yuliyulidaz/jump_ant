@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; }
+body { background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+</style>
+</head>
+<body>
+<svg width="1024" height="578" viewBox="0 0 1024 578" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#0D0D1A"/>
+<stop offset="100%" stop-color="#0B0B0F"/>
+</linearGradient>
+<linearGradient id="glow-blue" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#007AFF" stop-opacity="0.3"/>
+<stop offset="100%" stop-color="#007AFF" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="glow-red" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#FF3B30" stop-opacity="0.25"/>
+<stop offset="100%" stop-color="#FF3B30" stop-opacity="0"/>
+</linearGradient>
+<radialGradient id="coin-glow" cx="50%" cy="50%" r="50%">
+<stop offset="0%" stop-color="#FFD700" stop-opacity="0.5"/>
+<stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+</radialGradient>
+<filter id="text-shadow">
+<feDropShadow dx="0" dy="2" stdDeviation="10" flood-color="rgba(0,0,0,0.6)"/>
+</filter>
+</defs>
+
+<rect width="1024" height="578" fill="url(#bg)"/>
+
+<g opacity="0.05" stroke="#ffffff" stroke-width="0.5">
+<line x1="0" y1="150" x2="1024" y2="150"/>
+<line x1="0" y1="230" x2="1024" y2="230"/>
+<line x1="0" y1="310" x2="1024" y2="310"/>
+<line x1="0" y1="390" x2="1024" y2="390"/>
+<line x1="0" y1="470" x2="1024" y2="470"/>
+</g>
+
+<g fill="#ffffff">
+<circle cx="80" cy="50" r="1.2" opacity="0.5"/>
+<circle cx="220" cy="80" r="1" opacity="0.3"/>
+<circle cx="400" cy="35" r="1.3" opacity="0.4"/>
+<circle cx="560" cy="65" r="0.8" opacity="0.35"/>
+<circle cx="700" cy="45" r="1.2" opacity="0.5"/>
+<circle cx="830" cy="75" r="1" opacity="0.3"/>
+<circle cx="950" cy="40" r="0.8" opacity="0.4"/>
+<circle cx="150" cy="120" r="0.7" opacity="0.3"/>
+<circle cx="620" cy="100" r="0.9" opacity="0.35"/>
+<circle cx="880" cy="110" r="0.7" opacity="0.3"/>
+</g>
+
+<!-- LOGO -->
+<g filter="url(#text-shadow)">
+<text x="108" y="62" text-anchor="middle" font-family="-apple-system, 'Apple SD Gothic Neo', sans-serif" font-size="42" font-weight="800" fill="#ffffff" letter-spacing="6">수익</text>
+<text x="108" y="118" text-anchor="middle" font-family="-apple-system, 'Apple SD Gothic Neo', sans-serif" font-size="60" font-weight="800" fill="#FFD700" letter-spacing="3">JUMP</text>
+<text x="108" y="162" text-anchor="middle" font-family="-apple-system, 'Apple SD Gothic Neo', sans-serif" font-size="42" font-weight="800" fill="#ffffff" letter-spacing="6">개미</text>
+</g>
+
+<!-- 상한가 LINE -->
+<line x1="0" y1="290" x2="1024" y2="290" stroke="#FF3B30" stroke-width="1.5" stroke-dasharray="10 6" opacity="0.7"/>
+<text x="20" y="283" font-family="-apple-system, 'Apple SD Gothic Neo', sans-serif" font-size="12" font-weight="700" fill="#FF3B30" opacity="0.8" letter-spacing="1">상한가</text>
+
+<!-- CANDLES -->
+<g><rect x="30" y="430" width="42" height="60" rx="2" fill="#FF3B30" opacity="0.75"/><line x1="51" y1="415" x2="51" y2="430" stroke="#FF3B30" stroke-width="2.5" opacity="0.6"/><line x1="51" y1="490" x2="51" y2="500" stroke="#FF3B30" stroke-width="2.5" opacity="0.5"/><rect x="30" y="490" width="42" height="88" fill="url(#glow-red)" opacity="0.2"/></g>
+<g><rect x="95" y="400" width="44" height="90" rx="2" fill="#FF3B30" opacity="0.8"/><line x1="117" y1="380" x2="117" y2="400" stroke="#FF3B30" stroke-width="2.5" opacity="0.6"/><line x1="117" y1="490" x2="117" y2="502" stroke="#FF3B30" stroke-width="2.5" opacity="0.5"/><rect x="95" y="490" width="44" height="88" fill="url(#glow-red)" opacity="0.25"/></g>
+<g><rect x="162" y="370" width="44" height="50" rx="2" fill="#007AFF" opacity="0.8"/><line x1="184" y1="350" x2="184" y2="370" stroke="#007AFF" stroke-width="2.5" opacity="0.6"/><line x1="184" y1="420" x2="184" y2="435" stroke="#007AFF" stroke-width="2.5" opacity="0.5"/><rect x="162" y="420" width="44" height="70" fill="url(#glow-blue)" opacity="0.15"/></g>
+<g><rect x="230" y="355" width="46" height="100" rx="2" fill="#FF3B30" opacity="0.82"/><line x1="253" y1="330" x2="253" y2="355" stroke="#FF3B30" stroke-width="2.5" opacity="0.65"/><line x1="253" y1="455" x2="253" y2="470" stroke="#FF3B30" stroke-width="2.5" opacity="0.5"/><rect x="230" y="455" width="46" height="88" fill="url(#glow-red)" opacity="0.25"/></g>
+<g><rect x="300" y="320" width="46" height="90" rx="2" fill="#FF3B30" opacity="0.85"/><line x1="323" y1="295" x2="323" y2="320" stroke="#FF3B30" stroke-width="2.5" opacity="0.65"/><line x1="323" y1="410" x2="323" y2="428" stroke="#FF3B30" stroke-width="2.5" opacity="0.5"/><rect x="300" y="410" width="46" height="88" fill="url(#glow-red)" opacity="0.25"/></g>
+<g><rect x="370" y="290" width="48" height="55" rx="2" fill="#007AFF" opacity="0.85"/><line x1="394" y1="265" x2="394" y2="290" stroke="#007AFF" stroke-width="2.5" opacity="0.65"/><line x1="394" y1="345" x2="394" y2="365" stroke="#007AFF" stroke-width="2.5" opacity="0.5"/><rect x="370" y="345" width="48" height="70" fill="url(#glow-blue)" opacity="0.2"/></g>
+<g><rect x="442" y="265" width="50" height="120" rx="2" fill="#FF3B30" opacity="0.88"/><line x1="467" y1="235" x2="467" y2="265" stroke="#FF3B30" stroke-width="3" opacity="0.7"/><line x1="467" y1="385" x2="467" y2="405" stroke="#FF3B30" stroke-width="3" opacity="0.5"/><rect x="442" y="385" width="50" height="88" fill="url(#glow-red)" opacity="0.3"/></g>
+<g><rect x="516" y="230" width="48" height="60" rx="2" fill="#007AFF" opacity="0.88"/><line x1="540" y1="205" x2="540" y2="230" stroke="#007AFF" stroke-width="2.5" opacity="0.65"/><line x1="540" y1="290" x2="540" y2="310" stroke="#007AFF" stroke-width="2.5" opacity="0.5"/><rect x="516" y="290" width="48" height="70" fill="url(#glow-blue)" opacity="0.2"/></g>
+<g><rect x="588" y="210" width="50" height="95" rx="2" fill="#FF3B30" opacity="0.88"/><line x1="613" y1="185" x2="613" y2="210" stroke="#FF3B30" stroke-width="3" opacity="0.7"/><line x1="613" y1="305" x2="613" y2="325" stroke="#FF3B30" stroke-width="3" opacity="0.5"/><rect x="588" y="305" width="50" height="88" fill="url(#glow-red)" opacity="0.25"/></g>
+<g><rect x="662" y="165" width="52" height="80" rx="2" fill="#007AFF" opacity="0.9"/><line x1="688" y1="135" x2="688" y2="165" stroke="#007AFF" stroke-width="3" opacity="0.7"/><line x1="688" y1="245" x2="688" y2="268" stroke="#007AFF" stroke-width="3" opacity="0.5"/><rect x="662" y="245" width="52" height="70" fill="url(#glow-blue)" opacity="0.25"/></g>
+<g><rect x="738" y="140" width="52" height="90" rx="2" fill="#007AFF" opacity="0.9"/><line x1="764" y1="105" x2="764" y2="140" stroke="#007AFF" stroke-width="3" opacity="0.7"/><line x1="764" y1="230" x2="764" y2="255" stroke="#007AFF" stroke-width="3" opacity="0.5"/><rect x="738" y="230" width="52" height="70" fill="url(#glow-blue)" opacity="0.25"/></g>
+<g><rect x="814" y="155" width="48" height="70" rx="2" fill="#FF3B30" opacity="0.85"/><line x1="838" y1="135" x2="838" y2="155" stroke="#FF3B30" stroke-width="2.5" opacity="0.65"/><line x1="838" y1="225" x2="838" y2="242" stroke="#FF3B30" stroke-width="2.5" opacity="0.5"/><rect x="814" y="225" width="48" height="70" fill="url(#glow-red)" opacity="0.2"/></g>
+<g><rect x="886" y="110" width="54" height="100" rx="2" fill="#007AFF" opacity="0.92"/><line x1="913" y1="70" x2="913" y2="110" stroke="#007AFF" stroke-width="3.5" opacity="0.7"/><line x1="913" y1="210" x2="913" y2="238" stroke="#007AFF" stroke-width="3.5" opacity="0.5"/><rect x="886" y="210" width="54" height="70" fill="url(#glow-blue)" opacity="0.3"/></g>
+<g><rect x="960" y="130" width="46" height="75" rx="2" fill="#007AFF" opacity="0.85"/><line x1="983" y1="100" x2="983" y2="130" stroke="#007AFF" stroke-width="3" opacity="0.65"/><line x1="983" y1="205" x2="983" y2="225" stroke="#007AFF" stroke-width="3" opacity="0.5"/><rect x="960" y="205" width="46" height="70" fill="url(#glow-blue)" opacity="0.2"/></g>
+
+<!-- JUMP EFFECTS -->
+<path d="M253 330 Q360 100 467 235" stroke="#FFD700" stroke-width="2" stroke-dasharray="6 5" fill="none" opacity="0.25"/>
+<circle cx="265" cy="300" r="12" fill="#FFD700" opacity="0.05"/>
+<circle cx="285" cy="260" r="13" fill="#FFD700" opacity="0.07"/>
+<circle cx="308" cy="220" r="14" fill="#FFD700" opacity="0.09"/>
+<circle cx="332" cy="185" r="15" fill="#FFD700" opacity="0.11"/>
+<circle cx="345" cy="172" r="16" fill="#FFD700" opacity="0.13"/>
+<circle cx="253" cy="335" r="24" fill="none" stroke="#FFD700" stroke-width="1.5" opacity="0.15"/>
+<circle cx="253" cy="335" r="40" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.07"/>
+<circle cx="253" cy="335" r="54" fill="none" stroke="#FFD700" stroke-width="0.7" opacity="0.04"/>
+<g fill="#FFD700">
+<circle cx="245" cy="328" r="2.8" opacity="0.4"/>
+<circle cx="260" cy="322" r="2.2" opacity="0.35"/>
+<circle cx="248" cy="318" r="2" opacity="0.3"/>
+<circle cx="264" cy="334" r="1.8" opacity="0.25"/>
+<circle cx="238" cy="338" r="2.2" opacity="0.3"/>
+<circle cx="256" cy="340" r="1.5" opacity="0.2"/>
+</g>
+<g fill="#FF3B30">
+<circle cx="256" cy="328" r="2" opacity="0.3"/>
+<circle cx="242" cy="334" r="1.8" opacity="0.25"/>
+<circle cx="266" cy="330" r="1.5" opacity="0.2"/>
+</g>
+<line x1="348" y1="178" x2="335" y2="200" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" opacity="0.3"/>
+<line x1="352" y1="185" x2="340" y2="206" stroke="#FFD700" stroke-width="1.4" stroke-linecap="round" opacity="0.25"/>
+<line x1="344" y1="172" x2="330" y2="192" stroke="#FFD700" stroke-width="1" stroke-linecap="round" opacity="0.2"/>
+<line x1="346" y1="158" x2="330" y2="162" stroke="rgba(255,255,255,0.18)" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="350" y1="168" x2="336" y2="170" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="342" y1="150" x2="330" y2="153" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-linecap="round"/>
+
+<!-- ANT COIN 1.5x -->
+<g transform="translate(360, 155)">
+<circle cx="0" cy="0" r="75" fill="url(#coin-glow)" opacity="0.6"/>
+<g transform="rotate(-20)">
+<circle cx="0" cy="0" r="42" fill="#FFD700"/>
+<circle cx="0" cy="0" r="42" fill="none" stroke="rgba(255,180,0,0.4)" stroke-width="1.5"/>
+<circle cx="0" cy="0" r="30" fill="none" stroke="rgba(255,180,0,0.6)" stroke-width="2"/>
+<path d="M-10,-6 Q-7.5,-12 -5,-6" stroke="#1a1a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M5,-6 Q7.5,-12 10,-6" stroke="#1a1a00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<path d="M-9,-27 Q-18,-48 -22,-54" stroke="#1a1a00" stroke-width="2" fill="none" stroke-linecap="round"/>
+<path d="M9,-27 Q18,-48 22,-54" stroke="#1a1a00" stroke-width="2" fill="none" stroke-linecap="round"/>
+<circle cx="-22" cy="-54" r="3.3" fill="#1a1a00"/>
+<circle cx="22" cy="-54" r="3.3" fill="#1a1a00"/>
+<path d="M-9,3 Q0,16 9,3" stroke="#1a1a00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<ellipse cx="-9" cy="-13" rx="14" ry="9" transform="rotate(-15,-9,-13)" fill="rgba(255,255,255,0.15)"/>
+</g>
+</g>
+
+<!-- Sparkle stars -->
+<g fill="#FFD700">
+<path d="M415 120 l0 -8 l0 8 l8 0 l-8 0 l0 8 l0 -8 l-8 0z" opacity="0.6"/>
+<path d="M400 108 l0 -5 l0 5 l5 0 l-5 0 l0 5 l0 -5 l-5 0z" opacity="0.4"/>
+<path d="M318 135 l0 -5 l0 5 l5 0 l-5 0 l0 5 l0 -5 l-5 0z" opacity="0.5"/>
+<path d="M388 192 l0 -4 l0 4 l4 0 l-4 0 l0 4 l0 -4 l-4 0z" opacity="0.35"/>
+<path d="M340 115 l0 -3.5 l0 3.5 l3.5 0 l-3.5 0 l0 3.5 l0 -3.5 l-3.5 0z" opacity="0.45"/>
+</g>
+
+</svg>
+</body>
+</html>
